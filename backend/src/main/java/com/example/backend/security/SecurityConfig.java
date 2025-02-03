@@ -18,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    
+
 
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         // hier anpassen
