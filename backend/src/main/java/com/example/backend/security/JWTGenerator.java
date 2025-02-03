@@ -54,6 +54,6 @@ public class JWTGenerator {
             throw new AuthenticationCredentialsNotFoundException("JWT claims string is empty!");
         }
     }
-    
+
 
 }
