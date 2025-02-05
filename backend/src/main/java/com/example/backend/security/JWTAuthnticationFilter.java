@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 public class JWTAuthnticationFilter extends OncePerRequestFilter {
 
@@ -36,6 +37,7 @@ public class JWTAuthnticationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(token) && tokenGenerator.validateToken(token)){
             String username = tokenGenerator.getUsernameFromJwt(token);
 
+
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
@@ -53,5 +55,7 @@ public class JWTAuthnticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
+
 
 }

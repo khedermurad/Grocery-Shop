@@ -28,7 +28,7 @@ public class SecurityConfig {
         this.authEntryPoint = authEntryPoint;
     }
 
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         // hier anpassen
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
