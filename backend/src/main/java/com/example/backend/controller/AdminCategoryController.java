@@ -22,7 +22,7 @@ public class AdminCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCategory(Category category){
+    public ResponseEntity<String> createCategory(@RequestBody Category category){
         return adminCategoryService.saveCategory(category);
     }
 

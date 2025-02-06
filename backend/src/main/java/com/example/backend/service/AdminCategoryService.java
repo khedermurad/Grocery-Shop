@@ -20,13 +20,17 @@ public class AdminCategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public ResponseEntity<String> saveCategory(Category category){
-        if(categoryRepository.existsById(category.getId())){
+    public ResponseEntity<String> saveCategory(Category category) {
+        if (category.getId() != null && categoryRepository.existsById(category.getId())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("A category with this Id already exists.");
         }
+
+        category.setCreatedAt(LocalDateTime.now());
+
         categoryRepository.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
     public ResponseEntity<Category> findCategoryById(Long id){
         return categoryRepository.findById(id)
