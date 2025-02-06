@@ -28,6 +28,7 @@ public class SecurityConfig {
         this.authEntryPoint = authEntryPoint;
     }
 
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         // hier anpassen
         httpSecurity
@@ -36,9 +37,12 @@ public class SecurityConfig {
                         customizer.authenticationEntryPoint(authEntryPoint))
                 .sessionManagement(customizer ->
                         customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(request ->
-                        request.requestMatchers("/api/auth/**").permitAll().anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                                .anyRequest().authenticated()
+
+                );
 
         httpSecurity.addFilterBefore(jwtAuthnticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();

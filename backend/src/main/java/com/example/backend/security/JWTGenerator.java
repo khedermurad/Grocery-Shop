@@ -17,7 +17,11 @@ public class JWTGenerator {
 
         String username = authentication.getName();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        List<String> roles = authorities.stream().map(GrantedAuthority::getAuthority).toList();
+
+        List<String> roles = authorities.stream()
+                .map(role -> "ROLE_" + role.getAuthority())  // "ADMIN" → "ROLE_ADMIN"
+                .toList();
+
 
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);

@@ -6,7 +6,7 @@ import java.util.Base64;
 
 public class SecurityConstants {
     // TODO danach zeit kürzer machen
-    public static final long JWT_EXPIRATION = 60;
+    public static final long JWT_EXPIRATION = 4000000;
 
     public static final String JWT_SECRET = Base64.getEncoder().encodeToString("my-secure-secret-key-for-jwt-my-secure-secret-key-for-jwt".getBytes());
 
