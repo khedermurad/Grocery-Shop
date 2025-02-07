@@ -20,7 +20,7 @@ public class Payment {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    private double amount;
+    private Double amount;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
@@ -55,11 +55,11 @@ public class Payment {
         this.user = user;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

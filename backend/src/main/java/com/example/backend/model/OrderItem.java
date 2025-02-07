@@ -21,9 +21,9 @@ public class OrderItem {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    private int quantity;
+    private Integer quantity;
 
-    private int priceAtPurchase;
+    private Double priceAtPurchase;
 
     public OrderItem() {
     }
@@ -52,19 +52,19 @@ public class OrderItem {
         this.product = product;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public int getPriceAtPurchase() {
+    public Double getPriceAtPurchase() {
         return priceAtPurchase;
     }
 
-    public void setPriceAtPurchase(int priceAtPurchase) {
+    public void setPriceAtPurchase(Double priceAtPurchase) {
         this.priceAtPurchase = priceAtPurchase;
     }
 }

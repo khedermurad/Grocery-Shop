@@ -15,14 +15,14 @@ public class Product {
 
     private String name;
     private String description;
-    private double price;
+    private Double price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(name = "stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -61,11 +61,11 @@ public class Product {
         this.description = description;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -77,11 +77,11 @@ public class Product {
         this.category = category;
     }
 
-    public int getStockQuantity() {
+    public Integer getStockQuantity() {
         return stockQuantity;
     }
 
-    public void setStockQuantity(int stockQuantity) {
+    public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
 

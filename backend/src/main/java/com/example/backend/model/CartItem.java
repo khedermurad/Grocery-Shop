@@ -12,10 +12,10 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "subtotal_price")
-    private double subtotalPrice;
+    private Double subtotalPrice;
 
 
     @ManyToOne
@@ -37,19 +37,19 @@ public class CartItem {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public double getSubtotalPrice() {
+    public Double getSubtotalPrice() {
         return subtotalPrice;
     }
 
-    public void setSubtotalPrice(double subtotalPrice) {
+    public void setSubtotalPrice(Double subtotalPrice) {
         this.subtotalPrice = subtotalPrice;
     }
 

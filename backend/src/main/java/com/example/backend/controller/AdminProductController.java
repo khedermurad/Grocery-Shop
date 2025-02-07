@@ -1,18 +1,51 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.Product;
+import com.example.backend.service.AdminProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/admin/products")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminProductController {
 
-    @GetMapping
-    public String getHelloWorld(){
-        return "Hello World";
+    AdminProductService adminProductService;
+
+    @Autowired
+    public AdminProductController(AdminProductService adminProductService) {
+        this.adminProductService = adminProductService;
     }
+
+    @PostMapping
+    public ResponseEntity<String> createProduct(@RequestBody Product product){
+        return adminProductService.saveProduct(product);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+        return adminProductService.findProductById(id);
+    }
+
+    @GetMapping
+    public List<Product> getAllProducts(){
+        return adminProductService.findAllProducts();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, Long id){
+        return adminProductService.updateProductById(product, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id){
+        return adminProductService.deleteProductById(id);
+    }
+
+
 
 }

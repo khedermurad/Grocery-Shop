@@ -23,7 +23,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     @Column(name = "total_price")
-    private double totalPrice;
+    private Double totalPrice;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipping_address_id")
@@ -66,11 +66,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
