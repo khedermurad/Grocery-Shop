@@ -37,7 +37,7 @@ public class AdminProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product, Long id){
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product,@PathVariable Long id){
         return adminProductService.updateProductById(product, id);
     }
 

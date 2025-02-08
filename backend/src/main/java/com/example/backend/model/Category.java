@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -20,9 +21,14 @@ public class Category {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     public Category() {
+    }
+
+    public Category(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
