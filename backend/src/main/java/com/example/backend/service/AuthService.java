@@ -65,7 +65,7 @@ public class AuthService {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 
-        Role roles = roleRepository.findByName("USER").get();
+        Role roles = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new RuntimeException("Role 'USER' not found!"));
         user.setRoles(Collections.singletonList(roles));
 
         userRepository.save(user);

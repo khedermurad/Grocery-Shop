@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +15,10 @@ export class RegisterComponent implements OnInit {
 
   signUpForm!: FormGroup;
 
+  usernameIsTaken = false;
 
 
-  constructor(private fb: FormBuilder ){  }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router){  }
   
   
   ngOnInit(): void {
@@ -28,16 +31,32 @@ export class RegisterComponent implements OnInit {
     },
     {validators: [RegisterComponent.confirmPassword()]}) ;
 
-    
+
 
   }
-
 
 
 
   signUp(){
     if(this.signUpForm.invalid) return;
 
+    const user: User = {
+      username: this.signUpForm.get('username')?.value,
+      password: this.signUpForm.get('password')?.value,
+      email: this.signUpForm.get('email')?.value,
+      phoneNumber: this.signUpForm.get('phone')?.value
+    }
+
+    this.authService.register(user).subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+        alert("Registration successful!")
+      },
+      error: (err) =>{
+        console.error(err);
+        // TODO anzeigen
+      } 
+    });
 
   }
 
