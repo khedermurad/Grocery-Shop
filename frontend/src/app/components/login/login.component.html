@@ -21,5 +21,9 @@
 
   <button type="submit">Log in &#8594;</button>
 
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
   <p>or, <a routerLink="/register">sign up</a></p>
 </form>

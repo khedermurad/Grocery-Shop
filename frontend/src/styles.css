@@ -69,3 +69,9 @@ p{
 a{
     text-align: center;
 }
+
+.error{
+    padding: 10px;
+    color: red;
+    text-align: center;
+}
