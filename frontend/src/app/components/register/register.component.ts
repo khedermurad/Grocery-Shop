@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModu
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,13 @@ export class RegisterComponent implements OnInit {
     },
     {validators: [RegisterComponent.confirmPassword()]}) ;
 
+    this.signUpForm.get('username')?.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(username => this.authService.checkUsername(username))
+    ).subscribe(isTaken => {
+      this.usernameIsTaken = isTaken;
+    })
 
 
   }
@@ -54,7 +62,7 @@ export class RegisterComponent implements OnInit {
       },
       error: (err) =>{
         console.error(err);
-        // TODO anzeigen
+        this.usernameIsTaken = true;
       } 
     });
 

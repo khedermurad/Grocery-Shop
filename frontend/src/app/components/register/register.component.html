@@ -115,5 +115,9 @@
     Password does'nt match.
   </div>
 
+  <div class="error" *ngIf="usernameIsTaken">
+    This username is already taken!
+  </div>
+
   <p>Already have an account? <a routerLink="/login">Login</a></p>
 </form>

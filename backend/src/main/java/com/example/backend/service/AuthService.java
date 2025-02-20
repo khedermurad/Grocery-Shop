@@ -61,7 +61,6 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setEmail(registerDto.getEmail());
         user.setPhoneNumber(registerDto.getPhoneNumber());
-        user.setAddresses(registerDto.getAddresses());
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 

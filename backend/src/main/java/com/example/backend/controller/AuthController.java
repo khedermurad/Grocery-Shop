@@ -30,8 +30,8 @@ public class AuthController {
     }
 
     @GetMapping("check-username")
-    public ResponseEntity<Boolean> checkUsername(@RequestParam String name){
-        return authService.checkUsername(name);
+    public ResponseEntity<Boolean> checkUsername(@RequestParam String username){
+        return authService.checkUsername(username);
     }
 
 

@@ -17,5 +17,9 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, user, {responseType: 'text'});
   }
 
+  checkUsername(username: String): Observable<boolean>{
+    return this.http.get<boolean>(`${this.apiUrl}/check-username?username=${username}`);
+  }
+
 
 }

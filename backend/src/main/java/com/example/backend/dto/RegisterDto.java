@@ -11,7 +11,6 @@ public class RegisterDto {
     private String email;
     private String phoneNumber;
 
-    private List<Address> addresses;
 
 
     public RegisterDto() {
@@ -49,11 +48,4 @@ public class RegisterDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
 }
