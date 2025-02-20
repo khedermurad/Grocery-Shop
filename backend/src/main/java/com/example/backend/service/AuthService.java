@@ -73,5 +73,10 @@ public class AuthService {
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
 
+    public ResponseEntity<Boolean> checkUsername(String username){
+        boolean exists = userRepository.existsByUsername(username);
+        return ResponseEntity.ok(exists);
+    }
+
 
 }
