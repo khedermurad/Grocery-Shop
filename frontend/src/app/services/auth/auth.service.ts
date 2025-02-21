@@ -28,7 +28,12 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken');
+    if(token && this.isTokenExpired(token)){
+      this.logOut();
+      return null;
+    }
+    return token;
   }
 
   setToken(token: string): void{
@@ -37,6 +42,12 @@ export class AuthService {
 
   logOut(): void{
     localStorage.removeItem('accessToken');
+  }
+
+  private isTokenExpired(token: string): boolean{
+    const payload = JSON.parse(atob(token.split(".")[1]))
+    const expiry = payload.exp * 1000;
+    return Date.now() > expiry;
   }
   
 
