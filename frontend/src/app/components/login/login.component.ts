@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit {
       next: (response: AuthResponse) => {
         this.authService.setToken(response.accessToken);
 
-        alert(`Successfull login Token: ${response.accessToken}`);
+        alert(this.authService.getUserRole());
 
-        // TODO check if admin or user
       },
       error: (err) => {
         console.error(err);

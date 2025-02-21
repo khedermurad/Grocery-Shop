@@ -44,6 +44,22 @@ export class AuthService {
     localStorage.removeItem('accessToken');
   }
 
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+
+    if(!token) return null;
+
+    try{
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.roles ? payload.roles[0] : null;
+    }catch(error){
+      console.error("Error parsing token!");
+      return null;
+    }
+  }
+
+
   private isTokenExpired(token: string): boolean{
     const payload = JSON.parse(atob(token.split(".")[1]))
     const expiry = payload.exp * 1000;
