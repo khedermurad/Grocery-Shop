@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { LoginData } from '../../models/login-data';
 import { AuthResponse } from '../../models/auth-response';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService){
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router){
   }
 
   ngOnInit(): void {
@@ -43,7 +43,13 @@ export class LoginComponent implements OnInit {
       next: (response: AuthResponse) => {
         this.authService.setToken(response.accessToken);
 
-        alert(this.authService.getUserRole());
+        const role = this.authService.getUserRole();
+
+        if(role === 'ROLE_ROLE_ADMIN'){
+          this.router.navigate(['/admin-dashboard']);
+        }else if(role == 'ROLE_ROLE_USER'){
+          // TODO navigate to user dashboard
+        }
 
       },
       error: (err) => {
