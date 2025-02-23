@@ -1,4 +1,52 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
-  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
-</mat-sidenav-container>
+<div class="app-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <button
+      mat-icon-button
+      [disableRipple]="true"
+      (click)="drawer.toggle()"
+      class="custom-button"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="title">GroShop <small>Admin</small></h1>
+    <button mat-button (click)="onSignOut()" class="right-button">
+      <mat-icon>logout</mat-icon> Sign Out
+    </button>
+  </mat-toolbar>
+
+  <mat-drawer-container class="drawer-container">
+    <mat-drawer #drawer mode="side">
+      <mat-nav-list>
+        <mat-list-item>
+          <button mat-button class="sidenav-button">
+            <mat-icon>dashboard</mat-icon> Dashboard
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button class="sidenav-button">
+            <mat-icon>inventory_2 </mat-icon> Products
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button class="sidenav-button">
+            <mat-icon>category</mat-icon> Categories
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button class="sidenav-button">
+            <mat-icon>group</mat-icon> Users
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button class="sidenav-button">
+            <mat-icon>settings</mat-icon> Settings
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content class="content">
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
