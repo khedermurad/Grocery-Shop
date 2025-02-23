@@ -28,4 +28,8 @@ export class AdminComponent {
     this.router.navigate(['/admin']);
   }
 
+  openProducts(): void{
+    this.router.navigate(['/admin/products'])
+  }
+
 }

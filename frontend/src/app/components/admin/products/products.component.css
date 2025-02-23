@@ -1,0 +1,10 @@
+.mat-tab-group {
+    margin-bottom: 48px;
+  }
+
+
+:host{
+  --mat-sys-primary: orange;
+  --mat-sys-surface-variant: rgb(194, 194, 194);
+
+}

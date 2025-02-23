@@ -8,7 +8,9 @@
     >
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="title">GroShop <small>Admin</small></h1>
+    <h1 (click)="openDashBoard()" class="title">
+      GroShop <small>Admin</small>
+    </h1>
     <button mat-button (click)="onSignOut()" class="right-button">
       <mat-icon>logout</mat-icon> Sign Out
     </button>
@@ -18,12 +20,12 @@
     <mat-drawer #drawer mode="side">
       <mat-nav-list>
         <mat-list-item>
-          <button mat-button class="sidenav-button">
+          <button (click)="openDashBoard()" mat-button class="sidenav-button">
             <mat-icon>dashboard</mat-icon> Dashboard
           </button>
         </mat-list-item>
         <mat-list-item>
-          <button mat-button class="sidenav-button">
+          <button (click)="openProducts()" mat-button class="sidenav-button">
             <mat-icon>inventory_2 </mat-icon> Products
           </button>
         </mat-list-item>
