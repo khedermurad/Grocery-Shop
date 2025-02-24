@@ -10,13 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AdminProductService {
+
+    private static final String UPLOAD_DIR = "uploads/";
+
     private static final Logger logger = LoggerFactory.getLogger(AdminProductService.class);
+
+
 
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
@@ -27,26 +39,6 @@ public class AdminProductService {
         this.categoryRepository = categoryRepository;
     }
 
-//    public ResponseEntity<String> saveProduct(Product product) {
-//        logger.info("Speichern eines neuen Produkts...");
-//
-//        if (product.getCategory() == null || product.getCategory().getId() == null) {
-//            logger.error("Kategorie-ID ist null!");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category ID is required.");
-//        }
-//
-//        logger.info("Kategorie-ID erhalten: " + product.getCategory().getId());
-//
-//        Category category = categoryRepository.findById(product.getCategory().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("Category not found with ID: " + product.getCategory().getId()));
-//
-//        product.setCategory(category);
-//        product.setCreatedAt(LocalDateTime.now());
-//        productRepository.save(product);
-//
-//        logger.info("Produkt erfolgreich gespeichert mit ID: " + product.getId());
-//        return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully.");
-//    }
 
 
     public ResponseEntity<String> saveProduct(Product product){
@@ -114,6 +106,25 @@ public class AdminProductService {
                     return ResponseEntity.ok(existingProduct);
                 }).orElse(ResponseEntity.notFound().build());
     }
+
+    public ResponseEntity<String> saveImage(MultipartFile file){
+        try{
+
+            if(file.isEmpty()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The file must not be empty");
+            }
+
+            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, file.getBytes());
+            return ResponseEntity.ok("/uploads/" + fileName);
+        } catch (IOException e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Fehler beim Speichern der Datei", e);
+        }
+
+    }
+
 
 
 }
