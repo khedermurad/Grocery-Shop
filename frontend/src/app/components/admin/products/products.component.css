@@ -4,7 +4,7 @@
 
 
 :host{
-  --mat-sys-primary: orange;
+  --mat-sys-primary: rgb(255, 140, 45);
   --mat-sys-surface-variant: rgb(194, 194, 194);
 
 }
