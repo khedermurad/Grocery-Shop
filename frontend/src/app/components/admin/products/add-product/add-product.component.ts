@@ -15,6 +15,7 @@ export class AddProductComponent implements OnInit {
   productForm!: FormGroup;
   imagePreview: string | null = null;
   selectedFile: File | null = null;
+  imageUrl: string | null = null;
 
   categories = ['Electronics', 'Clothing', 'Books'];
 
@@ -36,9 +37,21 @@ export class AddProductComponent implements OnInit {
 
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
+    if (file) {    
+      
+      if(this.imageUrl){
+        this.productService.deleteImage(this.imageUrl).subscribe({
+          next: (data) => {},
+          error: (err) => {
+            console.log(err);
+            
+          }
+        })
+      }
+      
       this.productService.uploadImage(file).subscribe({
         next: (response) => {
+          this.imageUrl = response.imageUrl;
           console.log("Produkt erfolgreich hinzugefügt:", response);
           this.productForm.reset();
           this.imagePreview = null;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -130,6 +131,29 @@ public class AdminProductService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Fehler beim Speichern der Datei", e);
         }
 
+    }
+
+    public ResponseEntity<String> deleteImageByUrl(String url){
+
+        if(!url.startsWith("/uploads/")){
+            return ResponseEntity.badRequest().build();
+        }
+
+        String filePath = Paths.get(UPLOAD_DIR, url.substring("/uploads/".length())).toString();
+        File file = new File(filePath);
+
+        if (file.exists()){
+            if(file.delete()){
+                file.delete();
+                return ResponseEntity.noContent().build();
+            }
+            else {
+                return ResponseEntity.status(500).body("Error when deleting the image.");
+            }
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

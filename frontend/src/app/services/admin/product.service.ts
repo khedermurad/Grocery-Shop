@@ -20,5 +20,9 @@ export class ProductService {
     return this.http.post<{imageUrl: string}>(`${this.baseUrl}/image`, formData);
   }
 
+  deleteImage(url: string): Observable<string>{
+    return this.http.delete<string>(`${this.baseUrl}/image`, {params: {imageUrl: url}});
+  }
+
 
 }
