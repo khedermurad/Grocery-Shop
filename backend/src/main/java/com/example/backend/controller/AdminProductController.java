@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/admin/products")
@@ -48,7 +49,7 @@ public class AdminProductController {
     }
 
     @PostMapping(value="/image", consumes = "multipart/form-data")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file){
         return adminProductService.saveImage(file);
     }
 

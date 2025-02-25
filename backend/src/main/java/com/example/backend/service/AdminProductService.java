@@ -18,7 +18,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -107,7 +109,7 @@ public class AdminProductService {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    public ResponseEntity<String> saveImage(MultipartFile file){
+    public ResponseEntity<Map<String, String>> saveImage(MultipartFile file){
         try{
 
             if(file.isEmpty()){
@@ -118,7 +120,12 @@ public class AdminProductService {
             Path filePath = Paths.get(UPLOAD_DIR, fileName);
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, file.getBytes());
-            return ResponseEntity.ok("/uploads/" + fileName);
+
+            Map<String, String> response = new HashMap<>();
+            String imageUrl = "/uploads/" + fileName;
+            response.put("imageUrl", imageUrl);
+
+            return ResponseEntity.ok(response);
         } catch (IOException e){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Fehler beim Speichern der Datei", e);
         }
