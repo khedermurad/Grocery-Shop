@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -21,7 +22,7 @@ public class Category {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "category")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Product> products = new ArrayList<>();
 
     public Category() {

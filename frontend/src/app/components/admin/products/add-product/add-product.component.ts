@@ -61,7 +61,6 @@ export class AddProductComponent implements OnInit {
           next: (data) => {},
           error: (err) => {
             console.log(err);
-            
           }
         })
       }
@@ -95,6 +94,7 @@ export class AddProductComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.productForm.reset();
+        this.imageUrl = null;
       },
       error: (err) => {
         console.log(err);
