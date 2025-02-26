@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../services/admin/product.service';
+import { Product } from '../../../../models/product';
 
 @Component({
   selector: 'app-add-product',
@@ -29,7 +30,7 @@ export class AddProductComponent implements OnInit {
       price: ["", [Validators.required, Validators.min(0.01)]],
       category: ["", [Validators.required]],
       stockQuantity: ["", [Validators.required, Validators.min(0)]],
-      imageUrl: ["", [Validators.required]]
+      image: [null, [Validators.required]]
     });
   }
 
@@ -52,19 +53,40 @@ export class AddProductComponent implements OnInit {
       this.productService.uploadImage(file).subscribe({
         next: (response) => {
           this.imageUrl = response.imageUrl;
-          console.log("Produkt erfolgreich hinzugefügt:", response);
-          this.productForm.reset();
           this.imagePreview = null;
         },
         error: (error) => {
-          console.error("Fehler beim Hinzufügen des Produkts:", error);
+          console.error("Error uploading the image", error);
         }
       });
     }
   }
 
+  // TODO when adding picture other fields are gone
   addProduct() {
+    console.log("TEST");
     
+    if(this.productForm.invalid) return;
+
+    const product: Product = {
+      name: this.productForm.get('name')?.value,
+      description: this.productForm.get('description')?.value,
+      price: this.productForm.get('price')?.value,
+      category: this.productForm.get('category')?.value,
+      stockQuantity: this.productForm.get('stockQuantity')?.value,
+      imageUrl: this.imageUrl ?? ""
+    }
+
+    this.productService.createProduct(product).subscribe({
+      next: (response) => {
+        console.log(response);
+        // route
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
   }
 
 }

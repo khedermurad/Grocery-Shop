@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class ProductService {
 
   deleteImage(url: string): Observable<string>{
     return this.http.delete<string>(`${this.baseUrl}/image`, {params: {imageUrl: url}});
+  }
+
+  createProduct(product: Product): Observable<string>{
+    return this.http.post<string>(`${this.baseUrl}`, product);
   }
 
 

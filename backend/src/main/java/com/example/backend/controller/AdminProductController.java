@@ -53,7 +53,7 @@ public class AdminProductController {
         return adminProductService.saveImage(file);
     }
 
-    // TODO
+
     @DeleteMapping("/image")
     public ResponseEntity<String> deleteImage(@RequestParam String imageUrl){
         return adminProductService.deleteImageByUrl(imageUrl);

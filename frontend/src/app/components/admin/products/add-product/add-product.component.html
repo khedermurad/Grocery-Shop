@@ -109,10 +109,10 @@
   </div>
 
   <div class="form-control">
-    <label for="imageUrl">Image</label>
+    <label for="image">Image</label>
     <input
-      formControlName="imageUrl"
-      id="imageUrl"
+      formControlName="image"
+      id="image"
       autocomplete="new-password"
       type="file"
       (change)="onFileSelected($event)"
@@ -120,11 +120,10 @@
     />
     <div
       *ngIf="
-        productForm.get('imageUrl')?.invalid &&
-        productForm.get('imageUrl')?.touched
+        productForm.get('image')?.invalid && productForm.get('image')?.touched
       "
     >
-      <small *ngIf="productForm.get('imageUrl')?.errors?.['required']"
+      <small *ngIf="productForm.get('image')?.errors?.['required']"
         >Image is required</small
       >
     </div>
