@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../services/admin/product.service';
 import { Product } from '../../../../models/product';
+import { CategoryService } from '../../../../services/admin/category.service';
+import { CategoryView } from '../../../../models/category-view';
 
 @Component({
   selector: 'app-add-product',
@@ -14,16 +16,19 @@ export class AddProductComponent implements OnInit {
 
 
   productForm!: FormGroup;
-  imagePreview: string | null = null;
   selectedFile: File | null = null;
   imageUrl: string | null = null;
 
-  categories = ['Electronics', 'Clothing', 'Books'];
+  categories!: CategoryView[];
 
-  constructor(private fb: FormBuilder, private productService: ProductService){}
+
+  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService){}
 
 
   ngOnInit(): void {
+
+    this.loadCategories();
+
     this.productForm = this.fb.group({
       name: ["", [Validators.required]],
       description: ["", [Validators.required]],
@@ -31,6 +36,17 @@ export class AddProductComponent implements OnInit {
       category: ["", [Validators.required]],
       stockQuantity: ["", [Validators.required, Validators.min(0)]],
       image: [null, [Validators.required]]
+    });
+  }
+
+
+  loadCategories(){
+    this.categoryService.getCategoryList().subscribe({
+      next: (response) => {
+        this.categories = response;
+        console.log(this.categories);       
+      },
+      error: (err) => {console.log(err)}
     });
   }
 
@@ -53,7 +69,6 @@ export class AddProductComponent implements OnInit {
       this.productService.uploadImage(file).subscribe({
         next: (response) => {
           this.imageUrl = response.imageUrl;
-          this.imagePreview = null;
         },
         error: (error) => {
           console.error("Error uploading the image", error);
@@ -62,10 +77,9 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  // TODO when adding picture other fields are gone
+
   addProduct() {
-    console.log("TEST");
-    
+
     if(this.productForm.invalid) return;
 
     const product: Product = {
@@ -80,7 +94,7 @@ export class AddProductComponent implements OnInit {
     this.productService.createProduct(product).subscribe({
       next: (response) => {
         console.log(response);
-        // route
+        this.productForm.reset();
       },
       error: (err) => {
         console.log(err);

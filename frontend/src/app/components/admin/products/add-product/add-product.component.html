@@ -70,7 +70,7 @@
     <label for="category">Category</label>
     <select formControlName="category" id="category">
       @for (cat of categories; track cat) {
-      <option value="cat">{{ cat }}</option>
+      <option [ngValue]="cat.id">{{ cat.name }}</option>
       }
     </select>
     <div
@@ -80,7 +80,7 @@
       "
     >
       <small *ngIf="productForm.get('category')?.errors?.['required']"
-        >Price is required</small
+        >Category is required</small
       >
     </div>
   </div>
