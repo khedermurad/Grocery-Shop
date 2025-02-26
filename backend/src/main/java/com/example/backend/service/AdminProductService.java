@@ -74,6 +74,7 @@ public class AdminProductService {
         return productRepository.findAll();
     }
 
+
     public ResponseEntity<?> deleteProductById(Long id){
         return productRepository.findById(id)
                 .map( product -> {
@@ -154,6 +155,17 @@ public class AdminProductService {
         else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    public ResponseEntity<List<Product>> searchProducts(String name){
+        if (name == null){
+            List<Product> products = productRepository.findAll();
+            return ResponseEntity.ok(products);
+        }
+
+        List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(products);
     }
 
 

@@ -33,10 +33,6 @@ public class AdminProductController {
         return adminProductService.findProductById(id);
     }
 
-    @GetMapping
-    public List<Product> getAllProducts(){
-        return adminProductService.findAllProducts();
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product,@PathVariable Long id){
@@ -57,6 +53,11 @@ public class AdminProductController {
     @DeleteMapping("/image")
     public ResponseEntity<String> deleteImage(@RequestParam String imageUrl){
         return adminProductService.deleteImageByUrl(imageUrl);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getProducts(@RequestParam(name = "name_like", required = false) String name){
+        return adminProductService.searchProducts(name);
     }
 
 
