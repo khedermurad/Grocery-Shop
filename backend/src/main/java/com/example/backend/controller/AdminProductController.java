@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.ProductView;
 import com.example.backend.model.Product;
 import com.example.backend.service.AdminProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class AdminProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(@RequestParam(name = "name_like", required = false) String name){
+    public ResponseEntity<List<ProductView>> getProducts(@RequestParam(name = "name_like", required = false) String name){
         return adminProductService.searchProducts(name);
     }
 

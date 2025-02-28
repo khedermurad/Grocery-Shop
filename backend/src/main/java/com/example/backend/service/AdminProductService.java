@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.CategoryView;
+import com.example.backend.dto.ProductView;
 import com.example.backend.model.Category;
 import com.example.backend.model.Product;
 import com.example.backend.repository.CategoryRepository;
@@ -162,15 +164,28 @@ public class AdminProductService {
     }
 
 
-    public ResponseEntity<List<Product>> searchProducts(String name){
-        if (name == null){
+    public ResponseEntity<List<ProductView>> searchProducts(String name){
+        List<Product> products;
 
-            List<Product> products = productRepository.findAll();
-            return ResponseEntity.ok(products);
+        if (name == null || name.isEmpty()){
+            products = productRepository.findAll();
+        }else {
+            products = productRepository.findByNameContainingIgnoreCase(name);
         }
 
-        List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
-        return ResponseEntity.ok(products);
+        List<ProductView> productViews = products.stream().map(
+                p-> new ProductView(
+                        p.getId(),
+                        p.getName(),
+                        p.getDescription(),
+                        p.getPrice(),
+                        p.getStockQuantity(),
+                        p.getImageUrl(),
+                        new CategoryView(p.getCategory().getId(), p.getCategory().getName())
+                )
+        ).toList();
+
+        return ResponseEntity.ok(productViews);
     }
 
 
