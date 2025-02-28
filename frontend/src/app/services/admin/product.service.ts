@@ -29,5 +29,20 @@ export class ProductService {
     return this.http.post<string>(`${this.baseUrl}`, product);
   }
 
+  getProducts(name?: string): Observable<Product[]>{
+    const url = name ? `${this.baseUrl}?name_like=${name}` : this.baseUrl;
+    return this.http.get<Product[]>(url);
+  }
+
+  getImageUrl(imagePath: string): string{
+    if(!imagePath){
+      return 'assets/default-placeholder.png';
+    }
+    console.log(`${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`);
+    return `${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`;
+    
+    
+  }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.CategoryView;
 import com.example.backend.model.Category;
 import com.example.backend.service.AdminCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class AdminCategoryController {
     }
 
     @GetMapping
-    public List<Category> getAllCategories(){
+    public List<CategoryView> getAllCategories(){
         return adminCategoryService.findAllCategories();
     }
 

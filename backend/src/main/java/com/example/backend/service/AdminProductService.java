@@ -7,7 +7,10 @@ import com.example.backend.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -129,7 +133,7 @@ public class AdminProductService {
 
             return ResponseEntity.ok(response);
         } catch (IOException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Fehler beim Speichern der Datei", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error when saving the file", e);
         }
 
     }
@@ -160,6 +164,7 @@ public class AdminProductService {
 
     public ResponseEntity<List<Product>> searchProducts(String name){
         if (name == null){
+
             List<Product> products = productRepository.findAll();
             return ResponseEntity.ok(products);
         }
@@ -168,6 +173,28 @@ public class AdminProductService {
         return ResponseEntity.ok(products);
     }
 
+
+    public ResponseEntity<Resource> loadImage(String filename){
+        try {
+            Path filePath = Paths.get("uploads").resolve(filename);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
+            }
+
+            String contentType = Files.probeContentType(filePath);
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+
+            return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
+        }catch (IOException e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error when loading the file", e);
+        }
+
+    }
 
 
 }

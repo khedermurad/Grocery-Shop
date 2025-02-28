@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.CategoryView;
 import com.example.backend.model.Category;
 import com.example.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,9 @@ public class AdminCategoryService {
     }
 
 
-    public List<Category> findAllCategories(){
-        return categoryRepository.findAll();
+    // using findAllBy to get Categories without product
+    public List<CategoryView> findAllCategories(){
+        return categoryRepository.findAllBy();
     }
 
     public ResponseEntity<?> deleteCategoryById(Long id){

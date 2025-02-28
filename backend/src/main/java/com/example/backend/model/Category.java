@@ -22,7 +22,7 @@ public class Category {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "category")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     public Category() {

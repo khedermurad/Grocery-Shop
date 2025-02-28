@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.model.Product;
 import com.example.backend.service.AdminProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +61,10 @@ public class AdminProductController {
         return adminProductService.searchProducts(name);
     }
 
+    @GetMapping("/image/{filename}")
+    public ResponseEntity<Resource> getImage(@PathVariable String filename){
+        return adminProductService.loadImage(filename);
+    }
 
 
 }
