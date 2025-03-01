@@ -34,14 +34,8 @@ export class ProductService {
     return this.http.get<Product[]>(url);
   }
 
-  getImageUrl(imagePath: string): string{
-    if(!imagePath){
-      return 'assets/default-placeholder.png';
-    }
-    console.log(`${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`);
-    return `${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`;
-    
-    
+  getImageUrl(imagePath: string): Observable<Blob>{
+    return this.http.get(`${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`, {responseType: 'blob'});
   }
 
 

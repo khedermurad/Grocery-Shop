@@ -5,6 +5,7 @@ import { ProductService } from '../../../../services/admin/product.service';
 import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/admin/category.service';
 import { CategoryView } from '../../../../models/category-view';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -22,7 +23,10 @@ export class AddProductComponent implements OnInit {
   categories!: CategoryView[];
 
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService){}
+  constructor(private fb: FormBuilder, 
+    private productService: ProductService, 
+    private categoryService: CategoryService,
+    private router: Router){}
 
 
   ngOnInit(): void {
@@ -91,9 +95,9 @@ export class AddProductComponent implements OnInit {
 
     this.productService.createProduct(product).subscribe({
       next: (response) => {
-        console.log(response);
         this.productForm.reset();
         this.imageUrl = null;
+        this.router.navigate(['/admin/products'])
       },
       error: (err) => {
         console.log(err);

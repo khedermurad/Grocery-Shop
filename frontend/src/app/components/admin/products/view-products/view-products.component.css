@@ -2,16 +2,41 @@
     width: 100%;
   }
   
-  .mat-mdc-row .mat-mdc-cell {
+.mat-mdc-row .mat-mdc-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
     cursor: pointer;
-  }
+}
   
-  .mat-mdc-row:hover .mat-mdc-cell {
+.mat-mdc-row:hover .mat-mdc-cell {
     border-color: currentColor;
-  }
+}
   
-  .demo-row-is-clicked {
+.demo-row-is-clicked {
     font-weight: bold;
-  }
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  
+}
+
+.search-bar{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  background-color: transparent;
+}
+
+
+.search-bar-input{
+  padding: 8px;
+  width: 550px; 
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  box-shadow: none;
+}
