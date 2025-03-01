@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AddProductComponent } from "./add-product/add-product.component";
 import { ViewProductsComponent } from "./view-products/view-products.component";
@@ -11,5 +11,10 @@ import { ViewProductsComponent } from "./view-products/view-products.component";
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
+  @ViewChild(ViewProductsComponent) viewProductsComponent!: ViewProductsComponent;
+
+  onProductAdded(){
+    this.viewProductsComponent.fetchProducts();
+  }
 
 }

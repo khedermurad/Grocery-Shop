@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../services/admin/product.service';
 import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/admin/category.service';
 import { CategoryView } from '../../../../models/category-view';
 import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-add-product',
@@ -15,6 +17,8 @@ import { Router } from '@angular/router';
 })
 export class AddProductComponent implements OnInit {
 
+  @Output() productAdded = new EventEmitter<void>();
+  
 
   productForm!: FormGroup;
   selectedFile: File | null = null;
@@ -97,7 +101,7 @@ export class AddProductComponent implements OnInit {
       next: (response) => {
         this.productForm.reset();
         this.imageUrl = null;
-        this.router.navigate(['/admin/products'])
+        this.productAdded.emit();
       },
       error: (err) => {
         console.log(err);
