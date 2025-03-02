@@ -38,5 +38,9 @@ export class ProductService {
     return this.http.get(`${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`, {responseType: 'blob'});
   }
 
+  deleteProduct(id: number): Observable<String>{
+    return this.http.delete<string>(`${this.baseUrl}/${id}`);
+  }
+
 
 }

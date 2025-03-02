@@ -85,6 +85,17 @@ public class AdminProductService {
         return productRepository.findById(id)
                 .map( product -> {
                     productRepository.delete(product);
+
+                    String imageUrl = product.getImageUrl();
+
+                    if(imageUrl != null && !imageUrl.isEmpty()){
+                        Path filePath = Paths.get("uploads", imageUrl.replace("/uploads/", ""));
+                        try {
+                            Files.delete(filePath);
+                        } catch (IOException e) {
+                            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error when deleting the image", e);
+                        }
+                    }
                     return ResponseEntity.noContent().build();
                         }
                 ).orElse(ResponseEntity.notFound().build());

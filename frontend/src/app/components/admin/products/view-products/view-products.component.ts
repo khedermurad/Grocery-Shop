@@ -71,12 +71,26 @@ export class ViewProductsComponent implements OnInit{
   }
 
   openDialog(row: any) {
-    this.dialog.open(DialogEditComponent, {
+    const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '250px',
       enterAnimationDuration: '250ms',
-      exitAnimationDuration: '250ms'
+      exitAnimationDuration: '250ms',
+      data:{
+        id: row.id,
+        name: row.name
+      }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.success){
+        this.fetchProducts();
+      }
+    });
+
+
   }
+
+  
 
 
 

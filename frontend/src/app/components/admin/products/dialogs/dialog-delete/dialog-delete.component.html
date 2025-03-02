@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Delete Product</h2>
+<mat-dialog-content>
+  Would you like to delete {{ data.name }} ?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">No</button>
+  <button mat-button (click)="onDeleteProduct()">Ok</button>
+</mat-dialog-actions>
