@@ -11,12 +11,10 @@
 .mat-mdc-row:hover .mat-mdc-cell {
     border-color: currentColor;
 }
-  
-.demo-row-is-clicked {
-    font-weight: bold;
-}
+
 
 .container{
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   flex-direction: column; 
@@ -39,4 +37,8 @@
   border: 1px solid #ccc;
   background-color: transparent;
   box-shadow: none;
+}
+
+.demo-table{
+  margin-top: 50px;
 }

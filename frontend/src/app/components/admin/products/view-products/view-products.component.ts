@@ -4,6 +4,8 @@ import { Product } from '../../../../models/product';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { DialogEditComponent } from '../dialogs/dialog-edit/dialog-edit.component';
 
 @Component({
   selector: 'app-view-products',
@@ -20,9 +22,10 @@ export class ViewProductsComponent implements OnInit{
   imageUrlMap: Map<string, string> = new Map();
 
   displayedColumns: string[] = ['name', 'description', 'price', 'category', 'stockQuantity', 'image']
-  clickedRows = new Set<any>();
 
-  constructor(private productService: ProductService, private fb: FormBuilder){}
+  constructor(private productService: ProductService, 
+    private fb: FormBuilder,
+    private dialog: MatDialog){}
 
 
   ngOnInit(): void {
@@ -67,13 +70,16 @@ export class ViewProductsComponent implements OnInit{
     this.fetchProducts();
   }
 
-
-  onRowClicked(row: any) {
-    if (this.clickedRows.has(row)) {
-      this.clickedRows.delete(row);  
-    } else {
-      this.clickedRows.add(row); 
+  openDialog(row: any) {
+    this.dialog.open(DialogEditComponent, {
+      width: '250px',
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '250ms'
+    });
   }
-}
+
+
 
 }
+
+
