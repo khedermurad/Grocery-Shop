@@ -34,12 +34,20 @@ export class ProductService {
     return this.http.get<Product[]>(url);
   }
 
+  getProduct(id: number): Observable<Product>{
+    return this.http.get<Product>(`${this.baseUrl}/${id}`);
+  }
+
   getImageUrl(imagePath: string): Observable<Blob>{
     return this.http.get(`${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`, {responseType: 'blob'});
   }
 
   deleteProduct(id: number): Observable<String>{
     return this.http.delete<string>(`${this.baseUrl}/${id}`);
+  }
+
+  updateProduct(id: number, product: Product): Observable<Product>{
+    return this.http.put<Product>(`${this.baseUrl}/${id}`, product);
   }
 
 

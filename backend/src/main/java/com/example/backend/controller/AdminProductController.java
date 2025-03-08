@@ -31,13 +31,13 @@ public class AdminProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+    public ResponseEntity<ProductView> getProductById(@PathVariable Long id){
         return adminProductService.findProductById(id);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product,@PathVariable Long id){
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id){
         return adminProductService.updateProductById(product, id);
     }
 

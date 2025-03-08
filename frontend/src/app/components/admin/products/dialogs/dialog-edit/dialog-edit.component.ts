@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MatDialogContent, MatDialogActions, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-edit',
@@ -10,11 +11,13 @@ import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
 })
 export class DialogEditComponent {
 
+
   private deleteSuccess: boolean = false;
 
   constructor(private dialogRef: MatDialogRef<DialogEditComponent>,
               private dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) private data: any
+              @Inject(MAT_DIALOG_DATA) private data: any,
+              private router: Router
   ){}
 
   closeDialog() {
@@ -36,6 +39,11 @@ export class DialogEditComponent {
       }
     });
 
+  }
+
+  onEdit() {
+    this.router.navigate(['/admin/edit-product'], {queryParams: {productId: this.data.id}})
+    this.dialogRef.close({success: this.deleteSuccess})
   }
 
 }

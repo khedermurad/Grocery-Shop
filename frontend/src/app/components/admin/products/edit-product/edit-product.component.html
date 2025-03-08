@@ -1,0 +1,138 @@
+<form
+  [formGroup]="productForm"
+  (submit)="editProduct()"
+  autocomplete="new-password"
+>
+  <h1>Edit Product</h1>
+
+  <div class="form-control">
+    <label for="name">Name</label>
+    <input
+      formControlName="name"
+      id="name"
+      autocomplete="new-password"
+      type="text"
+    />
+    <div
+      *ngIf="
+        productForm.get('name')?.invalid && productForm.get('name')?.touched
+      "
+    >
+      <small *ngIf="productForm.get('name')?.errors?.['required']"
+        >Name is required</small
+      >
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="description">Description</label>
+    <input
+      formControlName="description"
+      id="description"
+      autocomplete="new-password"
+      type="text"
+    />
+    <div
+      *ngIf="
+        productForm.get('description')?.invalid &&
+        productForm.get('description')?.touched
+      "
+    >
+      <small *ngIf="productForm.get('description')?.errors?.['required']"
+        >Description is required</small
+      >
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="price">Price</label>
+    <input
+      formControlName="price"
+      id="price"
+      autocomplete="new-password"
+      type="number"
+    />
+    <div
+      *ngIf="
+        productForm.get('price')?.invalid && productForm.get('price')?.touched
+      "
+    >
+      <small *ngIf="productForm.get('price')?.errors?.['required']"
+        >Price is required</small
+      >
+      <small *ngIf="productForm.get('price')?.errors?.['min']">
+        Price should be positive
+      </small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="category">Category</label>
+    <select *ngIf="categories" formControlName="category" id="category">
+      @for (cat of categories; track cat) {
+      <option [ngValue]="cat.id">{{ cat.name }}</option>
+      }
+    </select>
+    <div
+      *ngIf="
+        productForm.get('category')?.invalid &&
+        productForm.get('category')?.touched
+      "
+    >
+      <small *ngIf="productForm.get('category')?.errors?.['required']"
+        >Category is required</small
+      >
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="stockQuantity">Stock Quantity</label>
+    <input
+      formControlName="stockQuantity"
+      id="stockQuantity"
+      autocomplete="new-password"
+      type="number"
+    />
+    <div
+      *ngIf="
+        productForm.get('stockQuantity')?.invalid &&
+        productForm.get('stockQuantity')?.touched
+      "
+    >
+      <small *ngIf="productForm.get('stockQuantity')?.errors?.['required']"
+        >Stock Quantity is required</small
+      >
+      <small *ngIf="productForm.get('stockQuantity')?.errors?.['min']"
+        >Stock quantity cannot be negative</small
+      >
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="image">Image</label>
+    <input
+      formControlName="image"
+      id="image"
+      autocomplete="new-password"
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+    />
+    <div
+      *ngIf="
+        productForm.get('image')?.invalid && productForm.get('image')?.touched
+      "
+    >
+      <small *ngIf="productForm.get('image')?.errors?.['required']"
+        >Image is required</small
+      >
+    </div>
+
+    <img class="image" [src]="imagePreview" alt="default-placeholder.png" />
+  </div>
+
+  <div class="button-container">
+    <button (click)="cancelEdit()">Cancel</button>
+    <button type="submit">Edit</button>
+  </div>
+</form>

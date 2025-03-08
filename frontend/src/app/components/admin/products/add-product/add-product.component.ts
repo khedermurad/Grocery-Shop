@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProductService } from '../../../../services/admin/product.service';
 import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/admin/category.service';
-import { CategoryView } from '../../../../models/category-view';
+import { Category } from '../../../../models/category';
 import { Router } from '@angular/router';
 
 
@@ -24,7 +24,7 @@ export class AddProductComponent implements OnInit {
   selectedFile: File | null = null;
   imageUrl: string | null = null;
 
-  categories!: CategoryView[];
+  categories!: Category[];
 
 
   constructor(private fb: FormBuilder, 
@@ -92,7 +92,8 @@ export class AddProductComponent implements OnInit {
       name: this.productForm.get('name')?.value,
       description: this.productForm.get('description')?.value,
       price: this.productForm.get('price')?.value,
-      category: this.productForm.get('category')?.value,
+      category: {id: this.productForm.get('category')?.value, 
+                name: ""},
       stockQuantity: this.productForm.get('stockQuantity')?.value,
       imageUrl: this.imageUrl ?? ""
     }

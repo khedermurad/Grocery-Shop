@@ -70,8 +70,20 @@ public class AdminProductService {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    public ResponseEntity<Product> findProductById(Long id){
+    public ResponseEntity<ProductView> findProductById(Long id){
+
         return productRepository.findById(id)
+                .map(product ->
+                    new ProductView(
+                            product.getId(),
+                            product.getName(),
+                            product.getDescription(),
+                            product.getPrice(),
+                            product.getStockQuantity(),
+                            product.getImageUrl(),
+                            new CategoryView(product.getCategory().getId(), product.getCategory().getName())
+                    )
+                )
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

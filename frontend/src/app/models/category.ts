@@ -1,4 +1,4 @@
-export interface CategoryView{
+export interface Category{
     id: number,
     name: string
 }
