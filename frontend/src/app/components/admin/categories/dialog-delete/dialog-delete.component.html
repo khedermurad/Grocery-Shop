@@ -1,0 +1,13 @@
+<div class="container">
+  <p>Would you like to delete {{ data.name }} ?</p>
+  <small
+    >Attention: This deletes all associated product entries when the category is
+    deleted!</small
+  >
+  <div class="buttons">
+    <button mat-button (click)="closeDialog()">No</button>
+    <button mat-button class="confirm-button" (click)="onDeleteCategory()">
+      Ok
+    </button>
+  </div>
+</div>

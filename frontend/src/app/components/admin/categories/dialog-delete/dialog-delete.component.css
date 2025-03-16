@@ -1,0 +1,23 @@
+
+p{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+small{
+    color: red;
+    font-size: 14px;
+}
+
+.container{
+    padding: 10px;
+}
+
+.buttons{
+    margin-top: 15px;
+}
+ 
+
+.confirm-button{
+    margin-left: 30px;
+}

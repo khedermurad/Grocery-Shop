@@ -1,0 +1,46 @@
+<div class="container">
+  <p class="header">Categories</p>
+  <div class="action-container">
+    <button (click)="onCreate()" mat-flat-button class="add-button">
+      <mat-icon>add</mat-icon>Create Category
+    </button>
+    <form
+      [formGroup]="searchForm"
+      class="search-bar"
+      (ngSubmit)="onSearchSubmit()"
+    >
+      <input
+        type="text"
+        placeholder="Search..."
+        formControlName="searchValue"
+        class="search-bar-input"
+        autocomplete="nope"
+      />
+    </form>
+  </div>
+  <table
+    mat-table
+    [dataSource]="categories"
+    class="mat-elevation-z8 demo-table"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editCategory(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteCategory(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

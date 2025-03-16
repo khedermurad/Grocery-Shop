@@ -66,5 +66,20 @@ public class AdminCategoryService {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
+    public ResponseEntity<List<CategoryView>> searchCategories(String name){
+        List<Category> categories;
+
+        if (name == null || name.isEmpty()){
+            categories = categoryRepository.findAll();
+        }else{
+            categories = categoryRepository.findByNameContainingIgnoreCase(name);
+        }
+
+        List<CategoryView> categoryViews = categories.stream().map(category ->
+                new CategoryView(category.getId(), category.getName())).toList();
+
+        return ResponseEntity.ok(categoryViews);
+    }
+
 
 }

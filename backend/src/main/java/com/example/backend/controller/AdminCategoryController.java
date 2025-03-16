@@ -32,10 +32,6 @@ public class AdminCategoryController {
         return adminCategoryService.findCategoryById(id);
     }
 
-    @GetMapping
-    public List<CategoryView> getAllCategories(){
-        return adminCategoryService.findAllCategories();
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category){
@@ -45,6 +41,11 @@ public class AdminCategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id){
         return adminCategoryService.deleteCategoryById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryView>> getProducts(@RequestParam(name = "name_like", required = false) String name){
+        return adminCategoryService.searchCategories(name);
     }
 
 

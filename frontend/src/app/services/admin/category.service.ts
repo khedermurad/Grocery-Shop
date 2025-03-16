@@ -13,9 +13,21 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
 
-  getCategoryList(): Observable<Category[]>{
-    return this.http.get<Category[]>(`${this.baseUrl}`);
+  getCategoryList(name?: string): Observable<Category[]>{
+    const url = name ? `${this.baseUrl}?name_like=${name}` : this.baseUrl;
+    return this.http.get<Category[]>(url);
   }
 
+  updateCategory(id: number, category: Category): Observable<Category>{
+    return this.http.put<Category>(`${this.baseUrl}/${id}`, category);
+  }
+
+  deleteCategory(id: number): Observable<string>{
+    return this.http.delete<string>(`${this.baseUrl}/${id}`);
+  }
+
+  createCategory(category: Category): Observable<string>{
+    return this.http.post<string>(`${this.baseUrl}`, category);
+  }
 
 }

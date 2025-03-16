@@ -7,8 +7,7 @@ import { AdminComponent } from './components/admin/admin/admin.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { ProductsComponent } from './components/admin/products/products.component';
 import { EditProductComponent } from './components/admin/products/edit-product/edit-product.component';
-import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
-import { ViewProductsComponent } from './components/admin/products/view-products/view-products.component';
+import { CategoriesComponent } from './components/admin/categories/categories/categories.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -23,7 +22,8 @@ export const routes: Routes = [
             {path: 'dashboard', component: DashboardComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {path: 'products', component: ProductsComponent},
-            {path: 'edit-product', component: EditProductComponent }
+            {path: 'edit-product', component: EditProductComponent},
+            {path: 'categories', component: CategoriesComponent}
         ]}
 
 ];

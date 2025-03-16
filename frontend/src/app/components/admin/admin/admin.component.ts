@@ -16,6 +16,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class AdminComponent {
 
+
   constructor(private authService: AuthService, private router: Router){}
 
 
@@ -29,7 +30,11 @@ export class AdminComponent {
   }
 
   openProducts(): void{
-    this.router.navigate(['/admin/products'])
+    this.router.navigate(['/admin/products']);
+  }
+
+  openCategories() {
+    this.router.navigate(['/admin/categories']);
   }
 
 }

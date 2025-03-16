@@ -1,0 +1,18 @@
+
+form{
+    padding: 10px;
+}
+
+.category-name{
+    width: 250px;
+    height: 25px;
+}
+
+.buttons{
+    margin-top: 15px;
+}
+ 
+
+.confirm-button{
+    margin-left: 50px;
+}

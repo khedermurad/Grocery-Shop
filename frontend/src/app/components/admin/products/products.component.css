@@ -3,8 +3,17 @@
   }
 
 
-:host{
-  --mat-sys-primary: rgb(255, 140, 45);
-  --mat-sys-surface-variant: rgb(194, 194, 194);
 
+.mat-mdc-tab-group{
+  --mat-tab-header-active-focus-label-text-color: rgb(255, 140, 45);
+  --mat-tab-header-active-hover-label-text-color: rgb(255, 140, 45);
+  --mat-tab-header-active-focus-indicator-color: rgb(255, 140, 45);
+  --mat-tab-header-active-hover-indicator-color: rgb(255, 140, 45);
+
+  --mat-tab-header-active-label-text-color: rgb(255, 140, 45);
+  --mat-tab-header-active-ripple-color: rgb(255, 140, 45);
+  --mat-tab-header-inactive-ripple-color: rgb(255, 140, 45);
+
+  --mdc-tab-indicator-active-indicator-color: rgb(255, 140, 45);
 }
+

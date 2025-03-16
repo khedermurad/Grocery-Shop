@@ -1,0 +1,46 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.header{
+    font-size: 24px;
+}
+
+.action-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.add-button{
+    background-color: rgb(255, 140, 45);
+}
+
+.search-bar{
+    display: flex;
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+  }
+  
+  
+  .search-bar-input{
+    padding: 8px;
+    width: 550px; 
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .demo-table{
+    margin-top: 50px;
+  }
+
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}

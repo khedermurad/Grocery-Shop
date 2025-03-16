@@ -42,16 +42,8 @@ mat-toolbar h1 {
   cursor: pointer;
 }
 
-.custom-button:hover{
-  background-color: transparent;
-}
-
-.sidenav-button:hover, .right-button:hover{
-  background-color: rgb(217, 217, 217);
-}
-
-.sidenav-button:active, .right-button:active{
-  background-color: rgb(182, 182, 182);
+.custom-button{
+  color: black;
 }
 
 .right-button{
@@ -60,5 +52,7 @@ mat-toolbar h1 {
   width: auto;
   margin-left: auto;
   border-radius: 20px;
- 
+  color: black !important;
 }
+
+
