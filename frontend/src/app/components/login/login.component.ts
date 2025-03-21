@@ -5,13 +5,14 @@ import { AuthService } from '../../services/auth/auth.service';
 import { LoginData } from '../../models/login-data';
 import { AuthResponse } from '../../models/auth-response';
 import { CommonModule } from '@angular/common';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule, MatButton],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
 

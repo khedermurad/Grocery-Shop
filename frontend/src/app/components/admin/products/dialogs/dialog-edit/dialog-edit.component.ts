@@ -2,12 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MatDialogContent, MatDialogActions, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 import { Router } from '@angular/router';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-dialog-edit',
-  imports: [MatDialogContent, MatDialogActions],
+  imports: [MatDialogContent, MatDialogActions, MatButton],
   templateUrl: './dialog-edit.component.html',
-  styleUrl: './dialog-edit.component.css'
+  styleUrl: './dialog-edit.component.scss'
 })
 export class DialogEditComponent {
 

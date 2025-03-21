@@ -15,7 +15,7 @@ import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
   selector: 'app-categories',
   imports: [MatButtonModule, MatIconModule, ReactiveFormsModule, MatTableModule],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css'
+  styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {
 
@@ -27,7 +27,7 @@ export class CategoriesComponent implements OnInit {
 
   private animationConfig = {
     width: '300px',
-    height: '100px',
+    height: '120px',
     enterAnimationDuration: '250ms',
     exitAnimationDuration: '250ms',
     data: {} as { id?: number; name?: string, create?: boolean }
@@ -101,7 +101,7 @@ export class CategoriesComponent implements OnInit {
   deleteCategory(category: Category) {
     this.animationConfig.data = {id: category.id, name: category.name};
     this.animationConfig.width = '400px';
-    this.animationConfig.height = '150px';
+    this.animationConfig.height = '180px';
 
     const dialogRef = this.dialog.open(DialogDeleteComponent, 
       this.animationConfig

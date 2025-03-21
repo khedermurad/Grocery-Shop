@@ -1,3 +1,6 @@
+@use '@angular/material' as mat;
+
+
 .app-container {
   position: absolute;
   top: 0;
@@ -15,8 +18,8 @@
 }
 
 mat-toolbar {
-  background-color: white;
   border-bottom: 1px solid rgb(171, 171, 171);
+
 }
 
 mat-drawer {
@@ -36,8 +39,7 @@ mat-toolbar h1 {
   margin-left: 5px;
   font-size: 1.5rem;
   font-weight: 600;
-  flex-grow: 1; 
-  display: block;
+  display: inline-block;
   color: rgb(255, 140, 45);
   cursor: pointer;
 }
@@ -56,3 +58,7 @@ mat-toolbar h1 {
 }
 
 
+.sidenav-button{
+  color: black;
+  background-color: transparent;
+}

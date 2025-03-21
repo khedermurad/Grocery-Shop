@@ -1,22 +1,24 @@
 <div class="container">
-  <p class="header">Categories</p>
-  <div class="action-container">
-    <button (click)="onCreate()" mat-flat-button class="add-button">
-      <mat-icon>add</mat-icon>Create Category
-    </button>
-    <form
-      [formGroup]="searchForm"
-      class="search-bar"
-      (ngSubmit)="onSearchSubmit()"
-    >
-      <input
-        type="text"
-        placeholder="Search..."
-        formControlName="searchValue"
-        class="search-bar-input"
-        autocomplete="nope"
-      />
-    </form>
+  <div class="header-container">
+    <p class="header">Categories</p>
+    <div class="action-container">
+      <button (click)="onCreate()" mat-flat-button class="add-button">
+        <mat-icon>add</mat-icon>Create Category
+      </button>
+      <form
+        [formGroup]="searchForm"
+        class="search-bar"
+        (ngSubmit)="onSearchSubmit()"
+      >
+        <input
+          type="text"
+          placeholder="Search..."
+          formControlName="searchValue"
+          class="search-bar-input"
+          autocomplete="nope"
+        />
+      </form>
+    </div>
   </div>
   <table
     mat-table

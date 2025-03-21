@@ -6,12 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/admin/category.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-product',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButton],
   templateUrl: './edit-product.component.html',
-  styleUrl: './edit-product.component.css'
+  styleUrl: './edit-product.component.scss'
 })
 export class EditProductComponent implements OnInit {
 

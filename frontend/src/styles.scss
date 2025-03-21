@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+@include mat.core();
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import './app/themes/greytheme.css';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// html{
+//     @include mat.theme((
+//         color: mat.$chartreuse-palette
+//     ));
+// }

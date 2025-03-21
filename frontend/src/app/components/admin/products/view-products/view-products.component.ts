@@ -11,7 +11,7 @@ import { DialogEditComponent } from '../dialogs/dialog-edit/dialog-edit.componen
   selector: 'app-view-products',
   imports: [ReactiveFormsModule, CommonModule, MatTableModule],
   templateUrl: './view-products.component.html',
-  styleUrl: './view-products.component.css'
+  styleUrl: './view-products.component.scss'
 })
 export class ViewProductsComponent implements OnInit{
 
@@ -72,7 +72,7 @@ export class ViewProductsComponent implements OnInit{
 
   openDialog(row: any) {
     const dialogRef = this.dialog.open(DialogEditComponent, {
-      width: '250px',
+      width: '300px',
       enterAnimationDuration: '250ms',
       exitAnimationDuration: '250ms',
       data:{

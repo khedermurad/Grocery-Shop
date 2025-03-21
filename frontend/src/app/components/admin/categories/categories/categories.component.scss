@@ -1,29 +1,33 @@
 .container{
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    //margin-left: 10px;
 }
 
 .header{
     font-size: 24px;
 }
 
-.action-container{
+.header-container{
+    margin-left: 10px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
-
-.add-button{
-    background-color: rgb(255, 140, 45);
+.action-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.search-bar{
-    display: flex;
-    width: 100%;
-    padding: 0;
-    background-color: transparent;
-  }
+.search-bar {
+  position: absolute;
+  left: 50%;
+  padding: 0;
+  transform: translateX(-50%);
+  height: 35px;
+}
+
   
   
   .search-bar-input{
@@ -33,14 +37,15 @@
     border: 1px solid #ccc;
     background-color: transparent;
     box-shadow: none;
+    font-size: var(--mat-sys-body-medium);
   }
 
   .demo-table{
     margin-top: 50px;
+
   }
 
   .mat-mdc-row .mat-mdc-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
-    cursor: pointer;
 }

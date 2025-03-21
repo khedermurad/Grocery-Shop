@@ -6,14 +6,15 @@ import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/admin/category.service';
 import { Category } from '../../../../models/category';
 import { Router } from '@angular/router';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 
 
 @Component({
   selector: 'app-add-product',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButton, MatButtonModule],
   templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.css'
+  styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent implements OnInit {
 

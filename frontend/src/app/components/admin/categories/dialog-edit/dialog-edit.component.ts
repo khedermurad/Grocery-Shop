@@ -4,12 +4,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CategoryService } from '../../../../services/admin/category.service';
 import { Category } from '../../../../models/category';
 import { Router } from '@angular/router';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-dialog-edit',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButton],
   templateUrl: './dialog-edit.component.html',
-  styleUrl: './dialog-edit.component.css'
+  styleUrl: './dialog-edit.component.scss'
 })
 export class DialogEditComponent implements OnInit {
 

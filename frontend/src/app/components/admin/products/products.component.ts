@@ -8,7 +8,7 @@ import { ViewProductsComponent } from "./view-products/view-products.component";
   selector: 'app-products',
   imports: [MatTabsModule, AddProductComponent, ViewProductsComponent, AddProductComponent, ViewProductsComponent],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
   @ViewChild(ViewProductsComponent) viewProductsComponent!: ViewProductsComponent;
