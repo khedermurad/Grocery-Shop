@@ -44,7 +44,7 @@ public class AdminCategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryView>> getProducts(@RequestParam(name = "name_like", required = false) String name){
+    public ResponseEntity<List<CategoryView>> getCategories(@RequestParam(name = "name_like", required = false) String name){
         return adminCategoryService.searchCategories(name);
     }
 
