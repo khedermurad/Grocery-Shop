@@ -40,7 +40,7 @@ mat-toolbar h1 {
   font-size: 1.5rem;
   font-weight: 600;
   display: inline-block;
-  color: rgb(255, 140, 45);
+  color: var(--app-logo-color);
   cursor: pointer;
 }
 
@@ -59,6 +59,7 @@ mat-toolbar h1 {
 
 
 .sidenav-button{
-  color: black;
-  background-color: transparent;
+  color: black !important;
+  background-color: transparent !important;
+  
 }

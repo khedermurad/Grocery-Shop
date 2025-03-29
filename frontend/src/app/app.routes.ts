@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { adminChildGuard, adminGuard } from './guards/admin.guard';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 import { AdminComponent } from './components/admin/admin/admin.component';
@@ -8,10 +8,11 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { ProductsComponent } from './components/admin/products/products.component';
 import { EditProductComponent } from './components/admin/products/edit-product/edit-product.component';
 import { CategoriesComponent } from './components/admin/categories/categories/categories.component';
+import { HomeComponent } from './components/public/home/home.component';
+import { OverviewComponent } from './components/public/overview/overview.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
-    {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'register', component: RegisterComponent},
     {path: 'access-denied', component: AccessDeniedComponent},
     {path: 'admin', 
@@ -24,6 +25,12 @@ export const routes: Routes = [
             {path: 'products', component: ProductsComponent},
             {path: 'edit-product', component: EditProductComponent},
             {path: 'categories', component: CategoriesComponent}
-        ]}
+        ]},
+    
+    {path: '', component: HomeComponent, pathMatch: 'full',
+        children: [
+            {path: '', component: OverviewComponent, pathMatch: 'full'}
+        ]
+    }
 
 ];

@@ -1,0 +1,96 @@
+
+.app-container { 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+mat-toolbar{
+    background-color: white;
+    box-shadow: 1px 1px 5px rgb(182, 182, 182);
+    height: 78px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container{
+    display: flex;
+    align-items: center;
+}
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-container:active{
+    color: inherit;
+}
+
+.logo{
+    height: 50px;
+    width: 50px;
+    margin-right: 5px;
+}
+
+.brand-name{
+    color: var(--app-logo-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.search-bar{
+    margin-left: 15px;
+    padding: 0px 56px 0px 8px;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--app-border-color);
+}
+
+.search-bar-input{
+    font-size: 1.1rem;
+    outline: none;
+    border: none;
+    min-width: 332px;
+    min-height: 35px;
+}
+
+.right-container{
+    display: flex;
+    align-items: center;
+}
+
+.main-content{
+    width: 70%;
+    margin-top: 40px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+footer{
+    background-color: var(--mat-sys-primary);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-container{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-content-container{
+    flex: 1; min-width: 250px
+}
+
+.footer-link{
+    color: white; 
+    text-decoration: none
+}

@@ -7,6 +7,13 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+:root{
+    --app-logo-color: rgb(255, 140, 45);
+    --app-border-color: #ccc;
+}
+
+
 // html{
 //     @include mat.theme((
 //         color: mat.$chartreuse-palette

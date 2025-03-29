@@ -1,0 +1,123 @@
+<form [formGroup]="signUpForm" (submit)="signUp()" autocomplete="new-password">
+  <h1>Sign Up</h1>
+  <div class="form-control">
+    <label for="username">Username</label>
+    <input
+      formControlName="username"
+      id="username"
+      autocomplete="new-password"
+      type="username"
+    />
+    <div
+      *ngIf="
+        signUpForm.get('username')?.invalid &&
+        signUpForm.get('username')?.touched
+      "
+    >
+      <small *ngIf="signUpForm.get('username')?.errors?.['required']"
+        >Username is required</small
+      >
+      <small *ngIf="signUpForm.get('username')?.errors?.['minlength']"
+        >Username must be at least 8 characters long</small
+      >
+    </div>
+  </div>
+  <div class="form-control">
+    <label for="email">Email</label>
+    <input
+      formControlName="email"
+      id="email"
+      autocomplete="new-password"
+      type="email"
+    />
+    <div
+      *ngIf="
+        signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched
+      "
+    >
+      <small *ngIf="signUpForm.get('email')?.errors?.['required']"
+        >Email is required</small
+      >
+      <small *ngIf="signUpForm.get('email')?.errors?.['email']"
+        >Invalid email</small
+      >
+    </div>
+  </div>
+  <div class="form-control">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      id="password"
+      autocomplete="new-password"
+      type="password"
+    />
+    <div
+      *ngIf="
+        signUpForm.get('password')?.invalid &&
+        signUpForm.get('password')?.touched
+      "
+    >
+      <small *ngIf="signUpForm.get('password')?.errors?.['required']"
+        >Password is required</small
+      >
+      <small *ngIf="signUpForm.get('password')?.errors?.['minlength']"
+        >Password must be at least 8 characters long</small
+      >
+    </div>
+  </div>
+  <div class="form-control">
+    <label for="password">Confirm Password</label>
+    <input
+      formControlName="confirmPassword"
+      id="confirm-password"
+      autocomplete="new-password"
+      type="password"
+    />
+    <div
+      *ngIf="
+        signUpForm.get('confirmPassword')?.invalid &&
+        signUpForm.get('confirmPassword')?.touched
+      "
+    >
+      <small *ngIf="signUpForm.get('confirmPassword')?.errors?.['required']"
+        >Password is required</small
+      >
+    </div>
+  </div>
+  <div class="form-control">
+    <label for="phone">Phone number</label>
+    <input
+      formControlName="phone"
+      id="phone"
+      autocomplete="new-password"
+      type="tel"
+    />
+    <div
+      *ngIf="
+        signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched
+      "
+    >
+      <small *ngIf="signUpForm.get('phone')?.errors?.['required']"
+        >Phone number is required</small
+      >
+      <small *ngIf="signUpForm.get('phone')?.errors?.['pattern']"
+        >Invalid phone number</small
+      >
+    </div>
+  </div>
+
+  <button mat-flat-button type="submit">Sign Up &#8594;</button>
+
+  <div
+    class="error"
+    *ngIf="signUpForm.errors?.['PasswordNoMatch'] && signUpForm.touched"
+  >
+    Password does'nt match.
+  </div>
+
+  <div class="error" *ngIf="usernameIsTaken">
+    This username is already taken!
+  </div>
+
+  <p>Already have an account? <a routerLink="/login">Login</a></p>
+</form>

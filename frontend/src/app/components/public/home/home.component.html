@@ -1,0 +1,56 @@
+<div class="app-container">
+  <mat-toolbar>
+    <div class="left-container">
+      <a routerLink="/" routerLinkActive="active" class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+        <span class="brand-name">GroShop</span>
+      </a>
+      <form class="search-bar" (ngSubmit)="onSearchSubmit()">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="Search for groceries..."
+          class="search-bar-input"
+          autocomplete="off"
+        />
+      </form>
+    </div>
+    <div class="right-container">
+      <button routerLink="/login" routerLinkActive="active" mat-button>
+        Sign in
+      </button>
+      <button mat-icon-button><mat-icon>shopping_bag</mat-icon></button>
+    </div>
+  </mat-toolbar>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+    <!--router outlet-->
+  </div>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content-container">
+        <h3>GroShop</h3>
+        <p>Your online supermarket for fresh products and more.</p>
+      </div>
+      <div class="footer-content-container">
+        <h4>Contact</h4>
+        <p>Email: info(at)groshop.com</p>
+        <p>Phone: +49 123 456 789</p>
+        <p>Address: Sample Street 1, 12345 Sample City</p>
+      </div>
+      <div class="footer-content-container">
+        <h4>Legal</h4>
+        <p>
+          <a class="footer-link" href="#">Imprint</a>
+        </p>
+        <p>
+          <a class="footer-link" href="#">Privacy Policy</a>
+        </p>
+        <p>
+          <a class="footer-link" href="#">Terms & Conditions</a>
+        </p>
+      </div>
+    </div>
+    <p style="margin-top: 20px">&copy; 2025 GroShop. All rights reserved.</p>
+  </footer>
+</div>
