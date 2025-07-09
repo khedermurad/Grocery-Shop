@@ -7,6 +7,13 @@
     ));
   }
 
+.content-wrapper{
+  width: 70%;
+  margin-top: 40px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
 .app-container{
     display: flex;
     flex-direction: column;
@@ -35,7 +42,7 @@
 }
 
 .category-image{
-  width: 250px;
+  width: 248px;
   height: 250px;
   object-fit: cover;
 }

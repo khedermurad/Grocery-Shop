@@ -1,0 +1,148 @@
+<div class="content-wrapper">
+  <div class="app-container">
+    <app-breadcrumb></app-breadcrumb>
+    <div class="filter-container">
+      <div class="start-buttons">
+        <!-- TODO: -->
+        <button
+          class="filter-button"
+          mat-button
+          [matMenuTriggerFor]="brandMenu"
+          (menuOpened)="isBrandMenuOpen = true"
+          (menuClosed)="isBrandMenuOpen = false"
+        >
+          <span class="button-content">
+            Brand
+            <mat-icon>
+              {{
+                isBrandMenuOpen ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}
+            </mat-icon>
+          </span>
+        </button>
+        <mat-menu #brandMenu="matMenu" class="default-menu">
+          <button mat-menu-item>test</button>
+        </mat-menu>
+        <button
+          class="filter-button"
+          mat-button
+          [matMenuTriggerFor]="categoryMenu"
+          (menuOpened)="isCategoryMenuOpen = true"
+          (menuClosed)="isCategoryMenuOpen = false"
+        >
+          <span class="button-content">
+            Category
+            <mat-icon>
+              {{
+                isCategoryMenuOpen ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}
+            </mat-icon>
+          </span>
+        </button>
+        <mat-menu #categoryMenu="matMenu">
+          @for (category of categories;let idx = $index; track $index) {
+          <button mat-menu-item (click)="onCategoryChange(idx)">
+            {{ category.name }}
+          </button>
+          }
+        </mat-menu>
+        <!-- TODO: -->
+        <button
+          class="filter-button"
+          mat-button
+          [matMenuTriggerFor]="priceMenu"
+          #priceMenuTrigger="matMenuTrigger"
+          [matMenuTriggerData]="{ manual: true }"
+          [matMenuTriggerRestoreFocus]="false"
+          (menuOpened)="isPriceMenuOpen = true"
+          (menuClosed)="isPriceMenuOpen = false"
+        >
+          <span class="button-content">
+            Price
+            <mat-icon>
+              {{
+                isPriceMenuOpen ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}
+            </mat-icon>
+          </span>
+        </button>
+        <mat-menu #priceMenu="matMenu" class="price-range-menu">
+          <div
+            matMenuContent
+            (click)="$event.stopPropagation()"
+            style="padding: 10px; width: 260px"
+          >
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Min Price</mat-label>
+              <input matInput type="number" [(ngModel)]="minPrice" />
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="fill"
+              style="width: 100%; margin-top: 8px"
+            >
+              <mat-label>Max Price</mat-label>
+              <input matInput type="number" [(ngModel)]="maxPrice" />
+            </mat-form-field>
+
+            <button
+              mat-button
+              color="primary"
+              (click)="applyPriceRange(); priceMenuTrigger.closeMenu()"
+            >
+              Apply
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+      <div class="end-buttons">
+        <!-- TODO: -->
+        <button
+          class="filter-button"
+          mat-button
+          [matMenuTriggerFor]="sortByMenu"
+          (menuOpened)="isSortByMenuOpen = true"
+          (menuClosed)="isSortByMenuOpen = false"
+        >
+          <span class="button-content">
+            Sort by <span> [Placeholder]</span>
+            <mat-icon>
+              {{
+                isSortByMenuOpen ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}
+            </mat-icon>
+          </span>
+        </button>
+
+        <mat-menu #sortByMenu="matMenu">
+          <button mat-menu-item>test</button>
+        </mat-menu>
+      </div>
+    </div>
+    <div class="products-container">
+      @for (product of products; track $index) {
+      <div class="product-card">
+        <img
+          class="product-image"
+          [src]="imageUrlMap.get(product.imageUrl)"
+          alt="Product Image"
+        />
+        <div class="title-price-container">
+          <p class="product-title">{{ product.name }}</p>
+          <div class="price-cart-container">
+            <p class="product-price">{{ product.price }} &euro;</p>
+            <button class="add-product-button" mat-icon-button>
+              <mat-icon class="add-icon">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    @if(!lastPage){
+    <button class="show-more-button" mat-flat-button (click)="showMore()">
+      See more categories
+    </button>
+    }
+  </div>
+</div>

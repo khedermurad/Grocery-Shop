@@ -1,0 +1,125 @@
+@use '@angular/material' as mat;
+
+:host {
+  @include mat.tabs-overrides((
+    active-indicator-color: white,
+    active-focus-indicator-color: white,
+    active-hover-indicator-color: white
+
+  ));
+
+
+  @include mat.menu-overrides((
+    container-shape: 450px
+
+  ));
+
+
+}
+
+
+
+.content-wrapper{
+    width: 80%;
+    margin-top: 40px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.app-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.clear-filter-link{
+    color: var(--app-link-blue);
+    cursor: pointer;
+    user-select: none;
+
+    &:active{
+        text-decoration: underline;
+        opacity: 0.8;
+    }
+}
+
+.filter-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.filter-button .button-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .filter-button mat-icon {
+    margin-left: 8px;
+  }
+
+.products-container{
+    display: flex;
+    flex-grow: 1;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    gap: 15px;
+    align-content: flex-start;
+}
+
+.product-card{
+    display: flex;
+    flex-direction: column;
+    height: 282px;
+    width: 200px;
+    border: 1px solid rgb(198, 198, 198);
+    border-radius: 5px;
+}
+
+.product-image{
+    //background-color: rgb(236, 236, 236);
+    min-width: 200px;
+    min-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.title-price-container{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.product-title{
+    font-weight: 500;
+    font-size: 18px;
+    width: 180px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    cursor: pointer; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.price-cart-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-price{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.show-more-button{
+    margin-top: 20px;
+    align-self: center;
+  }

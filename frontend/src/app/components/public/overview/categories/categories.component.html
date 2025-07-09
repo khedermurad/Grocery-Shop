@@ -1,24 +1,30 @@
-<div class="app-container">
-  <h1>Categories</h1>
-  <div class="categories-container">
-    @for (category of categories; track $index; let index = $index) { @if (index
-    < visibleCount ) {
-    <mat-card appearance="outlined" class="category-card">
-      <img
-        mat-card-image
-        [attr.src]="'categories/' + category.name.toLowerCase() + '.jpg'"
-        alt="Grocery"
-        class="category-image"
-      />
-      <mat-card-header>
-        <mat-card-title>{{ category.name }}</mat-card-title>
-      </mat-card-header>
-    </mat-card>
-    } }
+<div class="content-wrapper">
+  <div class="app-container">
+    <h1>Categories</h1>
+    <div class="categories-container">
+      @for (category of categories; track $index; let index = $index) { @if
+      (index < visibleCount ) {
+      <mat-card
+        (click)="onSelectCategory(category.id!)"
+        appearance="outlined"
+        class="category-card"
+      >
+        <img
+          mat-card-image
+          [attr.src]="'categories/' + category.name.toLowerCase() + '.jpg'"
+          alt="Grocery"
+          class="category-image"
+        />
+        <mat-card-header>
+          <mat-card-title>{{ category.name }}</mat-card-title>
+        </mat-card-header>
+      </mat-card>
+      } }
+    </div>
+    @if (visibleCount < categories.length) {
+    <button class="show-more-button" mat-flat-button (click)="showMore()">
+      See more categories
+    </button>
+    }
   </div>
-  @if (visibleCount < categories.length) {
-  <button class="show-more-button" mat-flat-button (click)="showMore()">
-    See more categories
-  </button>
-  }
 </div>

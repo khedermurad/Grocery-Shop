@@ -3,6 +3,7 @@ import { MatButton } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { Category } from '../../../../models/category';
 import { CategoryService } from '../../../../services/public/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -17,7 +18,9 @@ export class CategoriesComponent implements OnInit {
 
   visibleCount = 5;
 
-  constructor(private categoryService: CategoryService){}
+  constructor(private categoryService: CategoryService,
+              private router: Router
+  ){}
 
   ngOnInit(): void {
     this.categoryService.getCategoryList().subscribe({
@@ -34,6 +37,10 @@ export class CategoriesComponent implements OnInit {
 
   showMore() {
     this.visibleCount+= 5;
+  }
+
+  onSelectCategory(categoryId: number) {
+    this.router.navigate(['/products'], {queryParams: {category: categoryId}});
   }
 
 }

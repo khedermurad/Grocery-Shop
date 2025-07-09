@@ -1,0 +1,10 @@
+<nav class="breadcrumb">
+  @for (bc of breadcrumbs; let last = $last ;track $index) {
+  <ng-container>
+    @if (!last) {
+    <a class="breadcrumb-link" [routerLink]="bc.url">{{ bc.label }}</a>
+    } @if (last) {<span>{{ bc.label }}</span
+    >} @if (!last) {<span> / </span>}
+  </ng-container>
+  }
+</nav>

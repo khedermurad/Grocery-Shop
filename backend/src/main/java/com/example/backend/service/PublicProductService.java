@@ -7,6 +7,10 @@ import com.example.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,9 +50,11 @@ public class PublicProductService {
     }
 
 
-    public ResponseEntity<List<ProductView>> findProductByCategory(Long categoryId){
-        List<ProductView> productViews = productRepository.findByCategoryId(categoryId)
-                .stream().map(p ->
+    public ResponseEntity<Page<ProductView>> findProductByCategory(Long categoryId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        Page<ProductView> productViews = productRepository.findByCategoryId(categoryId, pageable)
+                .map(p ->
                     new ProductView(p.getId(),
                                     p.getName(),
                                     p.getDescription(),
@@ -55,23 +62,31 @@ public class PublicProductService {
                                     p.getStockQuantity(),
                                     p.getImageUrl(),
                                     new CategoryView(p.getCategory().getId(), p.getCategory().getName()))
-                    ).toList();
+                    );
 
         return ResponseEntity.ok(productViews);
     }
 
 
-    public ResponseEntity<List<ProductView>> searchProducts(String name){
-        List<Product> products;
+    public ResponseEntity<Page<ProductView>> searchProducts(String query,
+                                                            Long categoryId,
+                                                            BigDecimal minPrice,
+                                                            BigDecimal maxPrice,
+                                                            int page,
+                                                            int size){
 
-        if (name == null || name.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body(null);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        Page<Product> products;
+
+        if (query == null) {
+            products =  productRepository.findWithoutQuery(categoryId, minPrice, maxPrice, pageable);
+        } else {
+            products = productRepository.searchByFilters(query, categoryId, minPrice, maxPrice, pageable);
         }
 
-        products = productRepository.searchByNameOrCategoryName(name);
 
-
-        List<ProductView> productViews = products.stream().map(
+        Page<ProductView> productViews = products.map(
                 p -> new ProductView(
                         p.getId(),
                         p.getName(),
@@ -79,7 +94,7 @@ public class PublicProductService {
                         p.getPrice(),
                         p.getStockQuantity(),
                         p.getImageUrl(),
-                        new CategoryView(p.getCategory().getId(), p.getCategory().getName()))).toList();
+                        new CategoryView(p.getCategory().getId(), p.getCategory().getName())));
 
         return ResponseEntity.ok(productViews);
     }

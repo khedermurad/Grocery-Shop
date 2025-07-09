@@ -3,11 +3,13 @@
     <div class="left-container">
       <a routerLink="/" routerLinkActive="active" class="logo-container">
         <img src="logo.png" alt="Logo" class="logo" />
-        <span class="brand-name">GroShop</span>
       </a>
-      <form class="search-bar" (ngSubmit)="onSearchSubmit()">
+
+      <form class="search-bar">
         <mat-icon>search</mat-icon>
         <input
+          [formControl]="searchControl"
+          (keydown.enter)="onSearch()"
           type="text"
           placeholder="Search for groceries..."
           class="search-bar-input"
@@ -24,7 +26,6 @@
   </mat-toolbar>
   <div class="main-content">
     <router-outlet></router-outlet>
-    <!--router outlet-->
   </div>
   <footer>
     <div class="footer-container">

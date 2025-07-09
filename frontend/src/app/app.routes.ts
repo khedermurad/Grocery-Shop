@@ -10,6 +10,7 @@ import { EditProductComponent } from './components/admin/products/edit-product/e
 import { CategoriesComponent } from './components/admin/categories/categories/categories.component';
 import { HomeComponent } from './components/public/home/home.component';
 import { OverviewComponent } from './components/public/overview/overview.component';
+import { ProductListComponent } from './components/public/overview/product-list/product-list.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -27,9 +28,10 @@ export const routes: Routes = [
             {path: 'categories', component: CategoriesComponent}
         ]},
     
-    {path: '', component: HomeComponent, pathMatch: 'full',
+    {path: '', component: HomeComponent,  data: {breadcrumb: 'Home'},
         children: [
-            {path: '', component: OverviewComponent, pathMatch: 'full'}
+            {path: '', component: OverviewComponent, pathMatch: 'full'},
+            {path: 'products', component: ProductListComponent, data: {breadcrumb: 'Products'}}
         ]
     }
 
