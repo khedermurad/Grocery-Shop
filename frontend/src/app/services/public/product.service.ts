@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedProductResponse } from '../../models/paginated-product';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,17 @@ export class ProductService {
     return this.http.get<PaginatedProductResponse>(url);
   }
 
-  getImage(imagePath: string): Observable<Blob>{
-    return this.http.get(`${this.baseUrl}/image/${imagePath.replace(/^\/?uploads\//, '')}`, {responseType: 'blob'});
+  getImageUrl(imagePath: string): string{
+    return `${this.baseUrl}/image/${imagePath.replace('/uploads/', '')}`;
+  }
+
+
+  getProductById(productId: number): Observable<Product>{
+    return this.http.get<Product>(`${this.baseUrl}/${productId}`);
+  }
+
+  getRandomProducts(categoryId: number, limit: number): Observable<Product[]>{
+    return this.http.get<Product[]>(`${this.baseUrl}/random?categoryId=${categoryId}&limit=${limit}`);
   }
 
 

@@ -124,11 +124,14 @@
       <div class="product-card">
         <img
           class="product-image"
-          [src]="imageUrlMap.get(product.imageUrl)"
+          [src]="getImageUrl(product.imageUrl)"
           alt="Product Image"
+          (click)="goToDetail(product.id)"
         />
         <div class="title-price-container">
-          <p class="product-title">{{ product.name }}</p>
+          <p class="product-title" (click)="goToDetail(product.id)">
+            {{ product.name }}
+          </p>
           <div class="price-cart-container">
             <p class="product-price">{{ product.price }} &euro;</p>
             <button class="add-product-button" mat-icon-button>

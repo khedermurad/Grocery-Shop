@@ -1,6 +1,7 @@
 package com.example.backend.repository;
 
 import com.example.backend.model.Product;
+import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,6 +38,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                                    @Param("minPrice") BigDecimal minPrice,
                                    @Param("maxPrice") BigDecimal maxPrice,
                                    Pageable pageable);
+
+
+    @Query(value = "SELECT * FROM products WHERE category_id = :categoryId ORDER BY RANDOM() LIMIT :limit", nativeQuery = true)
+    List<Product> findRandomProductsByCategory(@Param("categoryId") Long categoryId, @Param("limit") int limit);
+
+
 
 
 }

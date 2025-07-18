@@ -48,7 +48,6 @@ export class ProductListComponent implements OnInit {
   private currentPage = 0;
   private currentCategory?: number;
   lastPage: boolean = false;
-  imageUrlMap: Map<String, String> = new Map();
   products: Product[] = [];
   categories: Category[] = [];
   minPrice?: number;
@@ -122,8 +121,6 @@ export class ProductListComponent implements OnInit {
   
         this.lastPage = response.last;
         this.currentPage = response.number;
-  
-        this.loadImagesForProducts(this.products);
       },
       error: err => {
         console.log(err)
@@ -166,21 +163,15 @@ export class ProductListComponent implements OnInit {
     this.updateFilters({minPrice: this.minPrice, maxPrice: this.maxPrice});
   }
 
-  private loadImagesForProducts(products: Product[]) {
-  for (const product of products) {
-    if (!this.imageUrlMap.has(product.imageUrl)) {
-      this.productService.getImage(product.imageUrl).subscribe({
-        next: blob => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.imageUrlMap.set(product.imageUrl, reader.result as string);
-          };
-          reader.readAsDataURL(blob);
-        },
-        error: err => console.log(err)
-      });
-    }
+
+goToDetail(id: number | undefined){
+  if (id){
+    this.router.navigate(['/products', id]);
   }
+}
+
+getImageUrl(imagePath: string): string{
+  return this.productService.getImageUrl(imagePath);
 }
   
 

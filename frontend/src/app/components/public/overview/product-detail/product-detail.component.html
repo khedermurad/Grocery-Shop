@@ -1,0 +1,75 @@
+<div class="app-container">
+  <app-breadcrumb></app-breadcrumb>
+  <div class="details-container">
+    <div class="image-details-container">
+      <img [src]="productImageUrl" alt="" class="product-image" />
+      <h2 class="details">Product Details</h2>
+      <p class="description">{{ product?.description }}</p>
+    </div>
+    <div class="right-container">
+      <div class="cart-container">
+        <h1 class="product-name">{{ product?.name }}</h1>
+        <p class="price">20 EUR</p>
+        <div class="cart-quantity-container">
+          <div class="quantity-selector">
+            <button mat-icon-button (click)="decrease()">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <span class="quantity-display">{{ quantity }}</span>
+            <button mat-icon-button (click)="increase()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <button class="cart-button" mat-flat-button>Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="rec-container">
+        <div class="line-horizontal"></div>
+        <h3>Recommended for you</h3>
+        <div class="rec-products-container">
+          @for (item of recommendedProducts; track $index) {
+          <div class="product-container">
+            <img
+              [src]="getImageUrl(item.imageUrl)"
+              alt=""
+              class="rec-product-img"
+              (click)="goToDetail(item.id)"
+            />
+            <div class="rec-product-right-container">
+              <p class="product-title" (click)="goToDetail(item.id)">
+                {{
+                  item?.name
+                    ? item.name.length > 15
+                      ? (item.name | slice : 0 : 15) + "..."
+                      : item.name
+                    : ""
+                }}
+              </p>
+              <div class="price-cart-container">
+                <p class="product-price">{{ item?.price }} &euro;</p>
+                <button class="add-product-button" mat-icon-button>
+                  <mat-icon class="add-icon">add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      <div class="deliver-container">
+        @if (product) { @if (product.stockQuantity > 0) {
+        <p class="available">available</p>
+        <div class="delivery-info">
+          <span class="material-icons">local_shipping</span>
+          <span class="delivery-text"
+            >Delivery by Wednesday, 16 July 2025 at the latest</span
+          >
+        </div>
+        } @else {
+        <p class="not-available">not available</p>
+        } }
+      </div>
+    </div>
+  </div>
+</div>

@@ -121,4 +121,24 @@ public class PublicProductService {
 
     }
 
+
+    public ResponseEntity<List<ProductView>> getRandomProducts(Long categoryId, int limit) {
+        List<Product> products = productRepository.findRandomProductsByCategory(categoryId, limit);
+
+        List<ProductView> productViews = products.stream()
+                .map(p -> new ProductView(
+                        p.getId(),
+                        p.getName(),
+                        p.getDescription(),
+                        p.getPrice(),
+                        p.getStockQuantity(),
+                        p.getImageUrl(),
+                        new CategoryView(p.getCategory().getId(), p.getCategory().getName())
+                ))
+                .toList();
+
+        return ResponseEntity.ok(productViews);
+    }
+
+
 }

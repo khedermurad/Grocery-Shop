@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.dto.ProductView;
 import com.example.backend.service.PublicProductService;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -50,6 +51,11 @@ public class PublicProductController {
     @GetMapping("/image/{filename}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename){
         return productService.loadImage(filename);
+    }
+
+    @GetMapping("/random")
+    public  ResponseEntity<List<ProductView>> getRandomProducts(@RequestParam Long categoryId, @RequestParam int limit){
+        return productService.getRandomProducts(categoryId, limit);
     }
 
 

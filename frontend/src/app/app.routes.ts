@@ -11,6 +11,7 @@ import { CategoriesComponent } from './components/admin/categories/categories/ca
 import { HomeComponent } from './components/public/home/home.component';
 import { OverviewComponent } from './components/public/overview/overview.component';
 import { ProductListComponent } from './components/public/overview/product-list/product-list.component';
+import { ProductDetailComponent } from './components/public/overview/product-detail/product-detail.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -31,7 +32,9 @@ export const routes: Routes = [
     {path: '', component: HomeComponent,  data: {breadcrumb: 'Home'},
         children: [
             {path: '', component: OverviewComponent, pathMatch: 'full'},
-            {path: 'products', component: ProductListComponent, data: {breadcrumb: 'Products'}}
+            {path: 'products', component: ProductListComponent, data: {breadcrumb: 'Products'}, children: [
+            ]},
+            { path: 'products/:id', component: ProductDetailComponent, data: { breadcrumb: 'Detail' }}
         ]
     }
 
