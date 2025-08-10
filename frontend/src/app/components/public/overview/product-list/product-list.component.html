@@ -40,10 +40,10 @@
           </span>
         </button>
         <mat-menu #categoryMenu="matMenu">
-          @for (category of categories;let idx = $index; track $index) {
-          <button mat-menu-item (click)="onCategoryChange(idx)">
-            {{ category.name }}
-          </button>
+          @for (category of categories; let idx = $index; track $index) {
+            <button mat-menu-item (click)="onCategoryChange(idx)">
+              {{ category.name }}
+            </button>
           }
         </mat-menu>
         <!-- TODO: -->
@@ -96,7 +96,7 @@
         </mat-menu>
       </div>
       <div class="end-buttons">
-        <!-- TODO: -->
+        <!-- TODO: 
         <button
           class="filter-button"
           mat-button
@@ -117,35 +117,42 @@
         <mat-menu #sortByMenu="matMenu">
           <button mat-menu-item>test</button>
         </mat-menu>
+        -->
       </div>
     </div>
     <div class="products-container">
       @for (product of products; track $index) {
-      <div class="product-card">
-        <img
-          class="product-image"
-          [src]="getImageUrl(product.imageUrl)"
-          alt="Product Image"
-          (click)="goToDetail(product.id)"
-        />
-        <div class="title-price-container">
-          <p class="product-title" (click)="goToDetail(product.id)">
-            {{ product.name }}
-          </p>
-          <div class="price-cart-container">
-            <p class="product-price">{{ product.price }} &euro;</p>
-            <button class="add-product-button" mat-icon-button>
-              <mat-icon class="add-icon">add</mat-icon>
-            </button>
+        <div class="product-card">
+          <img
+            class="product-image"
+            [src]="getImageUrl(product.imageUrl)"
+            alt="Product Image"
+            (click)="goToDetail(product.id)"
+          />
+          <div class="title-price-container">
+            <p class="product-title" (click)="goToDetail(product.id)">
+              {{ product.name }}
+            </p>
+            <div class="price-cart-container">
+              <p class="product-price">
+                {{ product.price | number: "1.2-2" }} &euro;
+              </p>
+              <button
+                class="add-product-button"
+                mat-icon-button
+                (click)="addToCart(product)"
+              >
+                <mat-icon class="add-icon">add</mat-icon>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
       }
     </div>
-    @if(!lastPage){
-    <button class="show-more-button" mat-flat-button (click)="showMore()">
-      See more categories
-    </button>
+    @if (!lastPage) {
+      <button class="show-more-button" mat-flat-button (click)="showMore()">
+        See more categories
+      </button>
     }
   </div>
 </div>

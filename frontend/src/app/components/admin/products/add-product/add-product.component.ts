@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ProductService } from '../../../../services/admin/product.service';
 import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/admin/category.service';
@@ -8,18 +13,14 @@ import { Category } from '../../../../models/category';
 import { Router } from '@angular/router';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 
-
-
 @Component({
   selector: 'app-add-product',
   imports: [CommonModule, ReactiveFormsModule, MatButton, MatButtonModule],
   templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.scss'
+  styleUrl: './add-product.component.scss',
 })
 export class AddProductComponent implements OnInit {
-
   @Output() productAdded = new EventEmitter<void>();
-  
 
   productForm!: FormGroup;
   selectedFile: File | null = null;
@@ -27,77 +28,71 @@ export class AddProductComponent implements OnInit {
 
   categories!: Category[];
 
-
-  constructor(private fb: FormBuilder, 
-    private productService: ProductService, 
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
     private categoryService: CategoryService,
-    private router: Router){}
-
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-
     this.loadCategories();
 
     this.productForm = this.fb.group({
-      name: ["", [Validators.required]],
-      description: ["", [Validators.required]],
-      price: ["", [Validators.required, Validators.min(0.01)]],
-      category: ["", [Validators.required]],
-      stockQuantity: ["", [Validators.required, Validators.min(0)]],
-      image: [null, [Validators.required]]
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0.01)]],
+      category: ['', [Validators.required]],
+      stockQuantity: ['', [Validators.required, Validators.min(0)]],
+      image: [null, [Validators.required]],
     });
   }
 
-
-  loadCategories(){
+  loadCategories() {
     this.categoryService.getCategoryList().subscribe({
       next: (response) => {
         this.categories = response;
       },
-      error: (err) => {console.log(err)}
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 
-
-
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {    
-      
-      if(this.imageUrl){
+    if (file) {
+      if (this.imageUrl) {
         this.productService.deleteImage(this.imageUrl).subscribe({
           next: (data) => {},
           error: (err) => {
             console.log(err);
-          }
-        })
+          },
+        });
       }
-      
+
       this.productService.uploadImage(file).subscribe({
         next: (response) => {
           this.imageUrl = response.imageUrl;
         },
         error: (error) => {
-          console.error("Error uploading the image", error);
-        }
+          console.error('Error uploading the image', error);
+        },
       });
     }
   }
 
-
   addProduct() {
-
-    if(this.productForm.invalid) return;
+    if (this.productForm.invalid) return;
 
     const product: Product = {
       name: this.productForm.get('name')?.value,
       description: this.productForm.get('description')?.value,
       price: this.productForm.get('price')?.value,
-      category: {id: this.productForm.get('category')?.value, 
-                name: ""},
+      category: { id: this.productForm.get('category')?.value, name: '' },
       stockQuantity: this.productForm.get('stockQuantity')?.value,
-      imageUrl: this.imageUrl ?? ""
-    }
+      imageUrl: this.imageUrl ?? '',
+    };
 
     this.productService.createProduct(product).subscribe({
       next: (response) => {
@@ -107,9 +102,7 @@ export class AddProductComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
-
   }
-
 }

@@ -1,29 +1,35 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @include mat.core();
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import './app/themes/greytheme.css';
+@import "./app/themes/greytheme.css";
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-:root{
-    --app-logo-color: rgb(255, 140, 45);
-    --app-border-color: #ccc;
-    --app-link-blue: #2162a1;
-    --app-sec-border-color: #d7d7d7;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+:root {
+  --app-logo-color: rgb(255, 140, 45);
+  --app-logo-light-color: rgba(255, 139, 45, 0.829);
+  --app-border-color: #ccc;
+  --app-link-blue: #2162a1;
+  --app-sec-border-color: #cacaca;
+}
 
 :root {
-    @include mat.radio-overrides((
-        selected-icon-color: var(--app-link-blue),
-        selected-pressed-icon-color: var(--app-link-blue),
-        ripple-color: var(--app-link-blue),
-        selected-hover-icon-color: var(--app-link-blue),
-        selected-focus-icon-color: var(--app-link-blue)
-    ));
+  @include mat.radio-overrides(
+    (
+      selected-icon-color: var(--app-link-blue),
+      selected-pressed-icon-color: var(--app-link-blue),
+      ripple-color: var(--app-link-blue),
+      selected-hover-icon-color: var(--app-link-blue),
+      selected-focus-icon-color: var(--app-link-blue),
+    )
+  );
 }
 
 // html{

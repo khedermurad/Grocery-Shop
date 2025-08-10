@@ -1,18 +1,17 @@
 .breadcrumb {
-    font-family:'Times New Roman', Times, serif;
-    font-size: 18px; 
-  }
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+}
 
+.breadcrumb-link {
+  color: var(--mat-sys-primary);
+  text-decoration: none;
+}
 
-  .breadcrumb-link {
-    color: var(--mat-sys-primary);
-    text-decoration: none; 
-  }
+.breadcrumb span {
+  color: var(--mat-sys-primary); /* Gleiche Farbe für den Text danach */
+}
 
-  .breadcrumb span {
-    color: var(--mat-sys-primary); /* Gleiche Farbe für den Text danach */
-  }
-
-  .breadcrumb-link:hover {
-    color: var(--app-link-blue); /* Dunklere Farbe beim Hover */
-  }
+.breadcrumb-link:hover {
+  color: var(--app-link-blue); /* Dunklere Farbe beim Hover */
+}

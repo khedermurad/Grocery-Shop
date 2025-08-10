@@ -1,4 +1,4 @@
-export interface AuthResponse{
-    accessToken: string,
-    tokenType: string
+export interface AuthResponse {
+  accessToken: string;
+  tokenType: string;
 }

@@ -1,0 +1,71 @@
+<div class="app-container">
+  <div class="cart-container">
+    <div class="left-container">
+      <h1 class="page-title">Your shopping cart</h1>
+      <div class="products-container">
+        @for (item of (cart$ | async)?.cartItems; track $index) {
+          @if (item.quantity > 0) {
+            <div class="product">
+              <img
+                class="product-image"
+                [src]="getImageUrl(item.product?.imageUrl)"
+                alt=""
+                (click)="goToDetail(item.product?.id)"
+              />
+              <p class="product-title" (click)="goToDetail(item.product?.id)">
+                {{ item.product?.name }}
+              </p>
+              <div class="quantity-selector">
+                <button mat-icon-button (click)="decrease(item)">
+                  @if (item.quantity > 1) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>delete</mat-icon>
+                  }
+                </button>
+                <span class="quantity-display">{{ item.quantity }}</span>
+                <button mat-icon-button (click)="increase(item)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+              <p class="product-price">
+                {{ calculateProductPrice(item) | number: "1.2-2" }} &euro;
+              </p>
+            </div>
+            <hr class="line" />
+          }
+        }
+      </div>
+    </div>
+    <div class="right-container" *ngIf="totalCount$ | async as totalCount">
+      <div *ngIf="totalCount > 0">
+        <div class="total-container">
+          <div class="subtotal-row">
+            <span>Subtotal</span>
+            <span class="subtotal-value"
+              >{{ totalSum$ | async | number: "1.2-2" }} &euro;</span
+            >
+          </div>
+          <div class="shipping-costs-row">
+            <span>Shipping costs</span>
+            <span class="shipping-costs-value"
+              >{{ SHIPPING_COSTS | number: "1.2-2" }} &euro;</span
+            >
+          </div>
+          <hr class="total-line" />
+          <div class="total-sum-row">
+            <span class="total-sum">{{ totalCount$ | async }} items</span>
+            <span class="total-sum"
+              >{{ cartTotal$ | async | number: "1.2-2" }} &euro;</span
+            >
+          </div>
+        </div>
+        <p class="terms-text">
+          The GroShop General Terms and Conditions apply,<br />
+          including the provisions on the right of withdrawal.
+        </p>
+        <button mat-flat-button class="checkout-button">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>

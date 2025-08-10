@@ -12,30 +12,48 @@ import { HomeComponent } from './components/public/home/home.component';
 import { OverviewComponent } from './components/public/overview/overview.component';
 import { ProductListComponent } from './components/public/overview/product-list/product-list.component';
 import { ProductDetailComponent } from './components/public/overview/product-detail/product-detail.component';
+import { CartComponent } from './components/public/overview/cart/cart.component';
+import { PageNotFoundComponent } from './components/public/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
-    {path: 'access-denied', component: AccessDeniedComponent},
-    {path: 'admin', 
-        component: AdminComponent, 
-        canActivate: [adminGuard], 
-        canActivateChild: [adminChildGuard],
-        children: [
-            {path: 'dashboard', component: DashboardComponent},
-            {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-            {path: 'products', component: ProductsComponent},
-            {path: 'edit-product', component: EditProductComponent},
-            {path: 'categories', component: CategoriesComponent}
-        ]},
-    
-    {path: '', component: HomeComponent,  data: {breadcrumb: 'Home'},
-        children: [
-            {path: '', component: OverviewComponent, pathMatch: 'full'},
-            {path: 'products', component: ProductListComponent, data: {breadcrumb: 'Products'}, children: [
-            ]},
-            { path: 'products/:id', component: ProductDetailComponent, data: { breadcrumb: 'Detail' }}
-        ]
-    }
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'access-denied', component: AccessDeniedComponent },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [adminGuard],
+    canActivateChild: [adminChildGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'products', component: ProductsComponent },
+      { path: 'edit-product', component: EditProductComponent },
+      { path: 'categories', component: CategoriesComponent },
+    ],
+  },
 
+  {
+    path: '',
+    component: HomeComponent,
+    data: { breadcrumb: 'Home' },
+    children: [
+      { path: '', component: OverviewComponent, pathMatch: 'full' },
+      {
+        path: 'products',
+        component: ProductListComponent,
+        data: { breadcrumb: 'Products' },
+        children: [],
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailComponent,
+        data: { breadcrumb: 'Detail' },
+      },
+      { path: 'cart', component: CartComponent, data: { breadcrumb: 'Cart' } },
+    ],
+  },
+  {
+    path: '**', component: PageNotFoundComponent
+  }
 ];

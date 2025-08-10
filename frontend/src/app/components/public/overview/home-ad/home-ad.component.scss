@@ -1,0 +1,19 @@
+.content-wrapper {
+  width: 70%;
+  margin-top: 40px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.app-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.home-ad-img{
+    border: 1px solid rgba(192, 192, 192, 0.4);
+    cursor: pointer;
+    min-width: 1013px;
+    min-height: 250px;
+}

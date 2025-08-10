@@ -1,94 +1,194 @@
-.app-container { 
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+@use "@angular/material" as mat;
+
+::ng-deep .menu-without-scroll {
+  max-width: none !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  background-color: white !important;
 }
 
-mat-toolbar{
-    background-color: white;
-    box-shadow: 1px 1px 5px rgb(182, 182, 182);
-    height: 78px;
-    display: flex;
-    justify-content: space-between;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.left-container{
-    display: flex;
-    align-items: center;
+mat-toolbar {
+  background-color: white;
+  box-shadow: 1px 1px 5px rgb(182, 182, 182);
+  height: 78px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.logo-container{
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+.left-container {
+  display: flex;
+  align-items: center;
 }
 
-.logo-container:active{
-    color: inherit;
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
-.logo{
-    width: 199.5px;
-    height: 112.5px;
-    margin-right: 5px;
-    
+.logo-container:active {
+  color: inherit;
 }
 
-.brand-name{
-    color: var(--app-logo-color);
-    font-size: 1.5rem;
-    font-weight: 600;
+.logo {
+  width: 199.5px;
+  height: 112.5px;
+  margin-right: 5px;
 }
 
-.search-bar{
-    margin-left: 15px;
-    padding: 0px 56px 0px 8px;
-    border-radius: 32px;
-    display: flex;
-    align-items: center;
-    border: 2px solid var(--app-border-color);
+.brand-name {
+  color: var(--app-logo-color);
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-.search-bar-input{
-    font-size: 1.1rem;
-    outline: none;
-    border: none;
-    min-width: 332px;
-    min-height: 35px;
+.search-bar {
+  margin-left: 15px;
+  padding: 0px 56px 0px 8px;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--app-border-color);
 }
 
-.right-container{
-    display: flex;
-    align-items: center;
+.search-bar-input {
+  font-size: 1.1rem;
+  outline: none;
+  border: none;
+  min-width: 332px;
+  min-height: 35px;
 }
 
-
-.main-content{
-    margin-bottom: auto;
+.right-container {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
 }
 
-
-
-footer{
-    background-color: var(--mat-sys-primary);
-    color: white;
-    padding: 20px;
-    text-align: center;
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  padding: 0 10px;
 }
 
-.footer-container{
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.close-cart-button {
+  margin-left: auto;
 }
 
-.footer-content-container{
-    flex: 1; min-width: 250px
+.cart-title {
+  margin: 0;
+  font-size: 18px;
 }
 
-.footer-link{
-    color: white; 
-    text-decoration: none
+.cart-products-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px;
+  height: 250px;
+  overflow-y: scroll;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card {
+  display: flex;
+}
+
+.product-image {
+  width: 75px;
+  height: 75px;
+}
+
+.product-card-right-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.product-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.product-amount {
+  margin: 10px 0;
+  color: rgb(61, 61, 61);
+}
+
+.product-sum {
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgb(61, 61, 61);
+}
+
+.line {
+  border: none;
+  height: 2px;
+  background-color: var(--app-sec-border-color);
+  width: 100%;
+}
+
+.total-sum-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-sum,
+.total-sum-value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cart-button {
+  margin-bottom: 10px;
+
+  font-size: 18px;
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--app-logo-color),
+    )
+  );
+}
+
+.main-content {
+  margin-bottom: auto;
+}
+
+footer {
+  background-color: var(--mat-sys-primary);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-content-container {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
 }

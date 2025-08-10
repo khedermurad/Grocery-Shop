@@ -1,44 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { LoginData } from '../../../models/login-data';
 import { AuthResponse } from '../../../models/auth-response';
 import { CommonModule } from '@angular/common';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { CartService } from '../../../services/public/cart.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, RouterModule, CommonModule, MatButton],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
-
   loginForm!: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router){
-  }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private cartService: CartService,
+  ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group(
-      {
-        username: ["", [Validators.required]],
-        password: ["", [Validators.required, Validators.minLength(8)]]
-      }
-    );
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
-
-  login(){
-    if(this.loginForm.invalid) return;
+  login() {
+    if (this.loginForm.invalid) return;
 
     const loginData: LoginData = {
       username: this.loginForm.get('username')?.value,
-      password: this.loginForm.get('password')?.value
-    }
+      password: this.loginForm.get('password')?.value,
+    };
 
     this.authService.login(loginData).subscribe({
       next: (response: AuthResponse) => {
@@ -46,20 +53,19 @@ export class LoginComponent implements OnInit {
 
         const role = this.authService.getUserRole();
 
-        if(role === 'ROLE_ROLE_ADMIN'){
+        if (role === 'ROLE_ROLE_ADMIN') {
           this.router.navigate(['/admin']);
-        }else if(role == 'ROLE_ROLE_USER'){
+        } else if (role == 'ROLE_ROLE_USER') {
           // TODO navigate to user dashboard
+          this.cartService.onLogin();
+          this.router.navigate(['']);
         }
-
       },
       error: (err) => {
         console.error(err);
-        this.errorMessage = "Error logging in. Please check your entries or try again later.";
-      }
+        this.errorMessage =
+          'Error logging in. Please check your entries or try again later.';
+      },
     });
-
   }
-  
-
 }

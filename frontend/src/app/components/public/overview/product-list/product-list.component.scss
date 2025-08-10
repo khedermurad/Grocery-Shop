@@ -1,125 +1,122 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 :host {
-  @include mat.tabs-overrides((
-    active-indicator-color: white,
-    active-focus-indicator-color: white,
-    active-hover-indicator-color: white
+  @include mat.tabs-overrides(
+    (
+      active-indicator-color: white,
+      active-focus-indicator-color: white,
+      active-hover-indicator-color: white,
+    )
+  );
 
-  ));
-
-
-  @include mat.menu-overrides((
-    container-shape: 450px
-
-  ));
-
-
+  @include mat.menu-overrides(
+    (
+      container-shape: 450px,
+    )
+  );
 }
 
-
-
-.content-wrapper{
-    width: 80%;
-    margin-top: 40px;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
+.content-wrapper {
+  width: 80%;
+  margin-top: 40px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.app-container{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 40px;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
 }
 
-.clear-filter-link{
-    color: var(--app-link-blue);
-    cursor: pointer;
-    user-select: none;
+.clear-filter-link {
+  color: var(--app-link-blue);
+  cursor: pointer;
+  user-select: none;
 
-    &:active{
-        text-decoration: underline;
-        opacity: 0.8;
-    }
+  &:active {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
 }
 
-.filter-container{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    margin-bottom: 40px;
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 40px;
 }
 
 .filter-button .button-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .filter-button mat-icon {
-    margin-left: 8px;
-  }
-
-.products-container{
-    display: flex;
-    flex-grow: 1;
-    justify-content:flex-start;
-    flex-wrap:wrap;
-    gap: 15px;
-    align-content: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.product-card{
-    display: flex;
-    flex-direction: column;
-    height: 282px;
-    width: 200px;
-    border: 1px solid rgb(198, 198, 198);
-    border-radius: 5px;
+.filter-button mat-icon {
+  margin-left: 8px;
 }
 
-.product-image{
-    //background-color: rgb(236, 236, 236);
-    min-width: 200px;
-    min-height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
-    cursor: pointer;
+.products-container {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-content: flex-start;
 }
 
-.title-price-container{
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 282px;
+  width: 200px;
+  border: 1px solid rgb(198, 198, 198);
+  border-radius: 5px;
 }
 
-.product-title{
-    font-weight: 500;
-    font-size: 18px;
-    width: 180px;
-    margin-top: 10px;
-    margin-bottom: 0;
-    cursor: pointer; 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.product-image {
+  //background-color: rgb(236, 236, 236);
+  min-width: 200px;
+  min-height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-
-.price-cart-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.title-price-container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
 }
 
-.product-price{
-    font-size: 15px;
-    font-weight: 500;
+.product-title {
+  font-weight: 500;
+  font-size: 18px;
+  width: 180px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.show-more-button{
-    margin-top: 20px;
-    align-self: center;
-  }
+.price-cart-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-price {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.show-more-button {
+  margin-top: 20px;
+  align-self: center;
+  background-color: var(--app-logo-color);
+}

@@ -1,54 +1,56 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 :host {
-    @include mat.card-overrides((
+  @include mat.card-overrides(
+    (
       subtitle-text-color: orange,
       elevated-container-color: red,
-    ));
-  }
+    )
+  );
+}
 
-.content-wrapper{
+.content-wrapper {
   width: 70%;
   margin-top: 40px;
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
 }
-.app-container{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 40px;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
 }
 
-.categories-container{
-    display: flex;
-    justify-content:flex-start;
-    flex-wrap: wrap;
-    gap: 15px;
+.categories-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 19px;
 }
 
-.category-card{
-    max-width: 250px;
-    border-radius: 3px;
-    cursor: pointer;
+.category-card {
+  max-width: 250px;
+  border-radius: 3px;
+  cursor: pointer;
 
-    &:hover {
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
+  &:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
 
-    &:active {
-      transform: scale(0.99);
-    }
+  &:active {
+    transform: scale(0.99);
+  }
 }
 
-.category-image{
+.category-image {
   width: 248px;
   height: 250px;
   object-fit: cover;
 }
 
-
-.show-more-button{
+.show-more-button {
   margin-top: 20px;
   align-self: center;
+  background-color: var(--app-logo-color);
 }

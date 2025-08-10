@@ -11,12 +11,14 @@ import { Product } from '../../../../models/product';
 import { CategoryService } from '../../../../services/public/category.service';
 import { Category } from '../../../../models/category';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
-import { BreadcrumbComponent } from "../../home/breadcrumb/breadcrumb.component";
+import { BreadcrumbComponent } from '../../home/breadcrumb/breadcrumb.component';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BehaviorSubject } from 'rxjs';
-
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddToCartComponent } from '../dialogs/dialog-add-to-cart/dialog-add-to-cart.component';
+import { CartService } from '../../../../services/public/cart.service';
+import { DecimalPipe } from '@angular/common';
 
 interface ProductFilter {
   search?: string;
@@ -27,12 +29,25 @@ interface ProductFilter {
 
 @Component({
   selector: 'app-product-list',
-  imports: [MatTabsModule, FormsModule, MatRadioModule,
-    MatCardModule, MatIcon, MatIconButton, MatButton, 
-    MatMenu, MatMenuTrigger, MatMenuModule,
-  BreadcrumbComponent, MatFormField, MatLabel, MatInputModule], 
+  imports: [
+    MatTabsModule,
+    FormsModule,
+    MatRadioModule,
+    MatCardModule,
+    MatIcon,
+    MatIconButton,
+    MatButton,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuModule,
+    BreadcrumbComponent,
+    MatFormField,
+    MatLabel,
+    MatInputModule,
+    DecimalPipe,
+  ],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  styleUrl: './product-list.component.scss',
 })
 export class ProductListComponent implements OnInit {
   [x: string]: any;
@@ -41,8 +56,7 @@ export class ProductListComponent implements OnInit {
   isPriceMenuOpen = false;
   isSortByMenuOpen = false;
 
-  private filters$ = new BehaviorSubject<ProductFilter>({})
-
+  private filters$ = new BehaviorSubject<ProductFilter>({});
 
   private pageSize = 18;
   private currentPage = 0;
@@ -54,31 +68,29 @@ export class ProductListComponent implements OnInit {
   maxPrice?: number;
   search?: string = '';
 
-  constructor(private route: ActivatedRoute,
-              private productService: ProductService,
-              private categoryService: CategoryService,
-              private router: Router
-  ){}
-
-  // TODOS
-  // alle filter entfernen
-  // was machen mit category und search? vielleicht nur preis entfernen
-
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private router: Router,
+    private dialog: MatDialog,
+    private cartService: CartService,
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const filters: ProductFilter = {
         category: params['category'] ? +params['category'] : undefined,
         minPrice: params['minPrice'] ? +params['minPrice'] : undefined,
         maxPrice: params['maxPrice'] ? +params['maxPrice'] : undefined,
-        search: params['search']
-      }
-      
+        search: params['search'],
+      };
+
       this.filters$.next(filters);
     });
 
-    this.filters$.subscribe(filters => {
-      this.search = filters.search ;
+    this.filters$.subscribe((filters) => {
+      this.search = filters.search;
       this.currentCategory = filters.category;
       this.minPrice = filters.minPrice;
       this.maxPrice = filters.maxPrice;
@@ -88,92 +100,126 @@ export class ProductListComponent implements OnInit {
       this.loadCategories();
 
       this.loadProducts({
-      keyword: filters.search,
-      categoryId: filters.category,
-      minPrice: filters.minPrice,
-      maxPrice: filters.maxPrice,
-      page: 0
-    });
+        keyword: filters.search,
+        categoryId: filters.category,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        page: 0,
+      });
     });
   }
 
+  private animationConfig = {
+    enterAnimationDuration: '250ms',
+    exitAnimationDuration: '250ms',
+  };
 
-  private loadProducts(options: {
-    keyword?: string,
-    categoryId?: number,
-    minPrice?: number, 
-    maxPrice?: number, 
-    page?: number
-  } = {}) {
+  private loadProducts(
+    options: {
+      keyword?: string;
+      categoryId?: number;
+      minPrice?: number;
+      maxPrice?: number;
+      page?: number;
+    } = {},
+  ) {
     const { keyword, categoryId, minPrice, maxPrice, page = 0 } = options;
-    const safeMinPrice = typeof minPrice === 'number' && !isNaN(minPrice) ? minPrice : undefined;
-    const safeMaxPrice = typeof maxPrice === 'number' && !isNaN(maxPrice) ? maxPrice : undefined;
-  
+    const safeMinPrice =
+      typeof minPrice === 'number' && !isNaN(minPrice) ? minPrice : undefined;
+    const safeMaxPrice =
+      typeof maxPrice === 'number' && !isNaN(maxPrice) ? maxPrice : undefined;
+
     if (page === 0) {
       this.products = [];
     }
-  
-    this.productService.getProducts(page, this.pageSize, keyword, categoryId, safeMinPrice, safeMaxPrice).subscribe({
-      next: response => {
-        response.content.forEach(product => {
-          this.products.push(product);
-        });
-  
-        this.lastPage = response.last;
-        this.currentPage = response.number;
-      },
-      error: err => {
-        console.log(err)
-      }
-    });
+
+    this.productService
+      .getProducts(
+        page,
+        this.pageSize,
+        keyword,
+        categoryId,
+        safeMinPrice,
+        safeMaxPrice,
+      )
+      .subscribe({
+        next: (response) => {
+          response.content.forEach((product) => {
+            this.products.push(product);
+          });
+
+          this.lastPage = response.last;
+          this.currentPage = response.number;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   updateFilters(partial: Partial<ProductFilter>) {
-  const current = this.filters$.value;
-  const updated = { ...current, ...partial };
+    const current = this.filters$.value;
+    const updated = { ...current, ...partial };
 
-  this.router.navigate([], {
-    relativeTo: this.route,
-    queryParams: updated,
-    queryParamsHandling: 'merge',
-  });
-}
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: updated,
+      queryParamsHandling: 'merge',
+    });
+  }
 
-  private loadCategories(){
+  private loadCategories() {
     this.categoryService.getCategoryList().subscribe({
-      next: response => {        
-        this.categories = response;        
+      next: (response) => {
+        this.categories = response;
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
-  
+
   showMore() {
-    this.loadProducts({categoryId: this.currentCategory, page: this.currentPage+1, keyword: this.search});
+    this.loadProducts({
+      categoryId: this.currentCategory,
+      page: this.currentPage + 1,
+      keyword: this.search,
+    });
   }
 
   onCategoryChange(index: number) {
     const category = this.categories[index].id;
-    this.updateFilters({category});
+    this.updateFilters({ category });
   }
 
   applyPriceRange() {
-    this.updateFilters({minPrice: this.minPrice, maxPrice: this.maxPrice});
+    this.updateFilters({ minPrice: this.minPrice, maxPrice: this.maxPrice });
   }
 
-
-goToDetail(id: number | undefined){
-  if (id){
-    this.router.navigate(['/products', id]);
+  goToDetail(id: number | undefined) {
+    if (id) {
+      this.router.navigate(['/products', id]);
+    }
   }
-}
 
-getImageUrl(imagePath: string): string{
-  return this.productService.getImageUrl(imagePath);
-}
-  
+  getImageUrl(imagePath: string): string {
+    return this.productService.getImageUrl(imagePath);
+  }
 
+  addToCart(product: Product): void {
+    const currentQuantity =
+      this.cartService.getCartProduct(product.id!)?.quantity ?? 0;
 
+    if (currentQuantity + 1 <= product.stockQuantity) {
+      this.cartService.addToCart(product, 1);
+
+      const dialogRef = this.dialog.open(DialogAddToCartComponent, {
+        ...this.animationConfig,
+        data: { product },
+      });
+
+      dialogRef.afterClosed().subscribe();
+    } else {
+    }
+  }
 }

@@ -18,10 +18,86 @@
       </form>
     </div>
     <div class="right-container">
-      <button routerLink="/login" routerLinkActive="active" mat-button>
-        Sign in
+      @if (userIsLoggedIn()) {
+        <button
+          mat-icon-button
+          #menuTrigger="matMenuTrigger"
+          [matMenuTriggerFor]="userMenu"
+        >
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu" class="menu-without-scroll">
+          <button mat-flat-button class="cart-button" (click)="logOut()">
+            Log out
+          </button>
+        </mat-menu>
+      } @else {
+        <button routerLink="/login" routerLinkActive="active" mat-button>
+          Sign in
+        </button>
+      }
+      <button
+        #menuTrigger="matMenuTrigger"
+        mat-icon-button
+        [matBadge]="(totalCount$ | async) || ''"
+        matBadgePosition="above after"
+        [matMenuTriggerFor]="shouldOpenCartMenu() ? cartMenu : null"
+      >
+        <mat-icon>shopping_bag</mat-icon>
       </button>
-      <button mat-icon-button><mat-icon>shopping_bag</mat-icon></button>
+      <mat-menu #cartMenu="matMenu" class="menu-without-scroll">
+        <div class="cart-container" (click)="$event.stopPropagation()">
+          <button
+            mat-icon-button
+            class="close-cart-button"
+            (click)="closeCartMenu()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          <p class="cart-title">Your shopping cart</p>
+          <div class="cart-products-container">
+            @for (item of (cart$ | async)?.cartItems; track $index) {
+              <div class="product-container">
+                @if (item.quantity > 0) {
+                  <div class="product-card">
+                    <img
+                      [src]="getImageUrl(item.product?.imageUrl)"
+                      alt=""
+                      class="product-image"
+                    />
+                    <div class="product-card-right-container">
+                      <p class="product-title">
+                        {{ item.product?.name }}
+                      </p>
+                      <p class="product-amount">Amount: {{ item.quantity }}</p>
+                      <p class="product-sum">
+                        {{
+                          calculateSum(item.quantity, item.product)
+                            | number: "1.2-2"
+                        }}
+                        &euro;
+                      </p>
+                    </div>
+                  </div>
+                  <hr class="line" />
+                }
+              </div>
+            }
+          </div>
+          <div class="total-sum-container">
+            <p class="total-sum">Total Sum</p>
+            <p class="total-sum-value">
+              {{ totalSum$ | async | number: "1.2-2" }} &euro;
+            </p>
+          </div>
+          <button mat-flat-button class="cart-button" (click)="goToCart()">
+            Checkout
+          </button>
+          <button mat-flat-button class="cart-button" (click)="closeCartMenu()">
+            Continue shopping
+          </button>
+        </div>
+      </mat-menu>
     </div>
   </mat-toolbar>
   <div class="main-content">

@@ -8,15 +8,14 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
   const role = authService.getUserRole();
 
-  if(role === 'ROLE_ROLE_ADMIN'){
+  if (role === 'ROLE_ROLE_ADMIN') {
     return true;
-  }else{
+  } else {
     router.navigate(['/access-denied']);
     return false;
   }
-
 };
 
 export const adminChildGuard: CanActivateChildFn = (route, state) => {
   return adminGuard(route, state);
-}
+};
